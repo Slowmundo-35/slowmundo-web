@@ -971,7 +971,7 @@ export default function VoyageDetails() {
               >
                 {/* 3 Images Carousel for this Day */}
                 <div className="w-full lg:w-5/12 shrink-0">
-                  <DayImageCarousel images={step.images} title={step.title} />
+                  <DayImageCarousel images={step.images ?? []} title={step.title} />
                 </div>
 
                 {/* Day Details */}
