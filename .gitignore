@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Build
+build/
+dist/
+coverage/
+
+# Vercel
+.vercel
+
+# Env
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Misc
+.DS_Store
+*.log
+*.tsbuildinfo

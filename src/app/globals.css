@@ -1,0 +1,69 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-primary: #007453;
+  --color-primary-hover: #005c42;
+  --color-background: #FCFCF9;
+  --color-text-main: #1C2B26;
+  --color-text-muted: #4A5F58;
+
+  --font-sans: var(--font-nunito), "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-quicksand), "Quicksand", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  ::selection {
+    background-color: #d8f3e5;
+    color: #134e3a;
+  }
+
+  body {
+    @apply bg-background text-text-main antialiased text-[16px];
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+
+  h1 { font-size: 48px; line-height: 1.1; }
+  h2 { font-size: 36px; line-height: 1.2; }
+  h3 { font-size: 28px; line-height: 1.3; }
+  h4 { font-size: 22px; line-height: 1.4; }
+  p  { font-size: 16px; line-height: 1.6; }
+}
+
+@layer utilities {
+  /* Ensure CTA links and buttons inside prose articles never have underlines */
+  .prose a.no-underline,
+  .prose a[class*="bg-"],
+  .prose a[class*="rounded-"],
+  .prose button,
+  a.no-underline,
+  .no-underline {
+    text-decoration: none !important;
+  }
+
+  /* Force table headers with green background to have white text in prose */
+  .prose table thead tr,
+  .prose table thead tr.bg-primary,
+  .prose table thead tr[class*="bg-primary"] {
+    background-color: var(--color-primary) !important;
+    color: #ffffff !important;
+  }
+
+  .prose table thead th,
+  .prose table th,
+  .prose th,
+  th.text-white,
+  tr.bg-primary th {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+  }
+
+  .not-prose img,
+  .prose .not-prose img {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+}

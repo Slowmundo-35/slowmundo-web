@@ -1,0 +1,12 @@
+export function slugify(text: string | undefined | null): string {
+  if (!text) return '';
+  return text
+    .toString()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w-]+/g, '')
+    .replace(/--+/g, '-');
+}
