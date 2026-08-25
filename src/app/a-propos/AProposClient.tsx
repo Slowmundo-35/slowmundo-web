@@ -81,7 +81,7 @@ export default function APropos() {
             <div className="relative rounded-[2.5rem] overflow-hidden aspect-[4/5] shadow-2xl border-4 border-white bg-gray-100">
               <img
                 src="/img/slowmundo/alexis-portrait.webp"
-                alt="Alexis, fondateur de Slowmundo"
+                alt="Alexis, fondateur de Slowmundo, agence de voyage bas carbone à Rennes"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -104,7 +104,7 @@ export default function APropos() {
           <div className="w-full lg:w-[480px] xl:w-[580px] mx-auto rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/3] xl:aspect-[16/9] border-4 border-white bg-gray-100 relative group">
             <img
               src="/img/slowmundo/train-europe.webp"
-              alt="Train de voyage en Europe"
+              alt="Train de voyage en Europe — slow tourisme éco responsable Slowmundo"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />

@@ -17,15 +17,26 @@ export async function generateMetadata({
     return { title: "Voyage introuvable" };
   }
   const canonical = `/voyages/${getCountrySlug(trip)}/${getTripSlug(trip)}`;
+  // Prefix the description with the target keyword when it's absent, so meta stays SEO-focused.
+  const rawDescription =
+    trip.description?.slice(0, 200) ??
+    `Voyage bas carbone en ${trip.country} : notre itinéraire ${trip.title}, en train et en slow tourisme.`;
+  const keywordPrefix = `Voyage organisé en train en ${trip.country}, ${trip.duration}, à partir de ${trip.price}€. `;
+  const description = (keywordPrefix + rawDescription).slice(0, 300);
   return {
     title: trip.title,
-    description:
-      trip.description?.slice(0, 160) ??
-      `Découvrez notre voyage ${trip.title} — un itinéraire bas carbone Slowmundo.`,
+    description,
     alternates: { canonical },
+    keywords: [
+      `voyage organisé en train en ${trip.country}`,
+      `voyage bas carbone ${trip.country}`,
+      "voyage éco responsable",
+      "slow tourisme",
+      ...trip.title.toLowerCase().split(/[\s—]+/).filter((w) => w.length > 4),
+    ],
     openGraph: {
       title: trip.title,
-      description: trip.description?.slice(0, 200),
+      description: rawDescription,
       images: [trip.image],
       type: "website",
     },

@@ -23,20 +23,43 @@ const quicksand = Quicksand({
 
 export const metadata: Metadata = {
   title: {
-    default: "Slowmundo — Voyager autrement",
+    default: "Slowmundo — Agence de voyage bas carbone en train | Europe & Asie",
     template: "%s | Slowmundo",
   },
   description:
-    "Agence de voyage bas carbone basée à Rennes. Voyagez à votre rythme, l'esprit libre. Slowmundo organise vos voyages personnalisés en Europe et en Asie.",
+    "Voyage éco responsable en train à travers l'Europe et l'Asie. Slowmundo, agence de voyage bas carbone à Rennes, conçoit vos itinéraires personnalisés en slow tourisme.",
   metadataBase: new URL("https://www.slowmundo.fr"),
+  keywords: [
+    "voyage éco responsable",
+    "voyage bas carbone",
+    "voyage organisé en train",
+    "agence de voyage bas carbone",
+    "slow tourisme",
+    "voyage sans avion",
+    "voyage en train Europe",
+    "voyage en train Asie",
+    "voyage responsable Rennes",
+  ],
+  authors: [{ name: "Slowmundo" }],
+  creator: "Slowmundo",
+  publisher: "Slowmundo",
   openGraph: {
-    title: "Slowmundo — Voyager autrement",
+    title: "Slowmundo — Agence de voyage bas carbone en train",
     description:
-      "Agence de voyage bas carbone. Voyagez à votre rythme, l'esprit libre.",
+      "Voyage éco responsable en train à travers l'Europe et l'Asie. Slowmundo organise vos voyages personnalisés en slow tourisme.",
     type: "website",
     locale: "fr_FR",
     siteName: "Slowmundo",
+    url: "https://www.slowmundo.fr",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Slowmundo — Agence de voyage bas carbone en train",
+    description:
+      "Voyage éco responsable en train à travers l'Europe et l'Asie. Voyages personnalisés en slow tourisme.",
+  },
+  robots: { index: true, follow: true },
+  category: "travel",
 };
 
 export default function RootLayout({

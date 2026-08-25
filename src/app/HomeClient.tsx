@@ -121,7 +121,7 @@ export default function Home() {
               <div className="relative w-full h-full rounded-[2.2rem] overflow-hidden shadow-2xl bg-gray-100 border border-gray-100">
                 <img
                   src="/img/slowmundo/paysage-italie-mer.webp"
-                  alt="Village italien au bord de la mer"
+                  alt="Voyage bas carbone au bord du lac Majeur — itinéraire Slowmundo en train"
                   className="w-full h-full object-cover"
                 />
                 
@@ -129,7 +129,7 @@ export default function Home() {
                 <div className="absolute bottom-0 left-0 w-[62%] sm:w-[58%] aspect-[4/3] rounded-tr-[2.2rem] overflow-hidden border-t-6 border-r-6 border-white shadow-2xl z-20 bg-gray-100 group">
                   <img
                     src="/img/slowmundo/alexis-devant-train.webp"
-                    alt="Alexis, fondateur de Slowmundo, en voyage devant un train"
+                    alt="Alexis, fondateur de l'agence de voyage bas carbone Slowmundo, en voyage éco responsable en train"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   {/* Floating badge inside overlay */}
@@ -204,7 +204,7 @@ export default function Home() {
                   <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 mt-auto shadow-inner group relative">
                     <img
                       src="/img/slowmundo/paysage-italie.webp"
-                      alt="Paysage italien à explorer"
+                      alt="Paysage italien du Tessin — voyage organisé en train en Europe"
                       className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
@@ -238,7 +238,7 @@ export default function Home() {
                   <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 mt-auto shadow-inner group relative">
                     <img
                       src="/img/slowmundo/alexis-monte-dans-train.webp"
-                      alt="Alexis embarquant dans un train pour partir en voyage"
+                      alt="Embarquement pour un voyage bas carbone — slow tourisme en train avec Slowmundo"
                       className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
@@ -272,7 +272,7 @@ export default function Home() {
                   <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 mt-auto shadow-inner group relative">
                     <img
                       src="/img/slowmundo/alexis-montagnes-suisse.webp"
-                      alt="Alexis en immersion dans les montagnes suisses"
+                      alt="Immersion en Suisse alpine — voyage organisé en train en Europe"
                       className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
@@ -514,7 +514,7 @@ export default function Home() {
             >
               <img
                 src="/img/slowmundo/paysage-autriche-montagne.webp"
-                alt="Paysage autrichien en montagne, un des voyages proposés par Alexis"
+                alt="Paysage autrichien en montagne — voyage bas carbone imaginé par Slowmundo"
                 className="w-full h-full object-cover"
               />
             </motion.div>

@@ -2,10 +2,15 @@ import type { Metadata } from "next";
 import BlogClient from "./BlogClient";
 
 export const metadata: Metadata = {
-  title: "Blog & inspirations",
+  title: "Blog voyage bas carbone & slow tourisme",
   description:
-    "Articles, guides et inspirations pour voyager bas carbone : itinéraires en train, écotourisme, slow travel en Europe et en Asie.",
+    "Articles, guides et inspirations pour voyager éco responsable : itinéraires en train, écotourisme et slow tourisme en Europe et en Asie.",
   alternates: { canonical: "/blog" },
+  openGraph: {
+    title: "Blog voyage bas carbone & slow tourisme | Slowmundo",
+    description:
+      "Guides et récits pour organiser un voyage éco responsable en train, en Europe et en Asie.",
+  },
 };
 
 export default function Page() {

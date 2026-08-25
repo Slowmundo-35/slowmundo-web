@@ -36,15 +36,25 @@ export async function generateMetadata({
   const canonical = `/voyages/${country}`;
   if (trips.length === 0) {
     return {
-      title: `Voyages en ${pretty}`,
-      description: `Nos itinéraires bas carbone à venir en ${pretty}.`,
+      title: `Voyage organisé en train en ${pretty}`,
+      description: `Voyage bas carbone en ${pretty} : nos itinéraires slow tourisme arrivent bientôt. Contactez Slowmundo pour créer votre voyage éco responsable sur mesure.`,
       alternates: { canonical },
     };
   }
+  const count = trips.length;
+  const descLead =
+    count === 1
+      ? `découvrez notre itinéraire`
+      : `découvrez nos ${count} itinéraires`;
+  const ogLead = count === 1 ? "Notre itinéraire" : `Nos ${count} itinéraires`;
   return {
-    title: `Voyages en ${pretty}`,
-    description: `Découvrez nos ${trips.length} voyage${trips.length > 1 ? "s" : ""} bas carbone en ${pretty} — itinéraires en train imaginés par Slowmundo.`,
+    title: `Voyage organisé en train en ${pretty}`,
+    description: `Voyage organisé en train en ${pretty} : ${descLead} bas carbone Slowmundo. Voyage éco responsable et slow tourisme.`,
     alternates: { canonical },
+    openGraph: {
+      title: `Voyage organisé en train en ${pretty} | Slowmundo`,
+      description: `${ogLead} bas carbone en ${pretty}, en train et en slow tourisme.`,
+    },
   };
 }
 
