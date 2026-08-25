@@ -1,5 +1,25 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
+import { z } from 'zod';
+
+/**
+ * Validation schema for an Article stored in localStorage.
+ * Treat parsed content as untrusted — dev tools or a future XSS could inject
+ * malicious JSON. Only string fields are allowed; `bodyContent` is rendered
+ * as plain text (React auto-escapes), never as HTML.
+ */
+const StoredArticleSchema = z.object({
+  id: z.union([z.string(), z.number()]),
+  slug: z.string().min(1).max(200),
+  title: z.string().min(1).max(300),
+  category: z.string().min(1).max(100),
+  image: z.string().max(600),
+  imageAlt: z.string().max(300).optional(),
+  excerpt: z.string().max(1000),
+  readTime: z.string().max(60).optional(),
+  date: z.string().max(60).optional(),
+  bodyContent: z.string().max(50000).optional(),
+});
 import { 
   CarbonSimulatorWidget, 
   BrochureDownloadWidget, 
@@ -653,29 +673,33 @@ export function getStoredArticles(): Article[] {
   // Guard SSR : localStorage is client-only.
   if (typeof window === 'undefined') return articlesData;
   try {
-    const customRaw = localStorage.getItem('slowmundo_custom_articles');
-    if (customRaw) {
-      const parsed = JSON.parse(customRaw);
-      const formatted: Article[] = parsed.map((art: any) => ({
-        ...art,
-        content: () => (
-          <div className="space-y-4">
-            {art.bodyContent ? (
-              art.bodyContent.split('\n\n').map((paragraph: string, idx: number) => (
-                <p key={idx} className="mb-4 leading-relaxed text-text-main text-base">
-                  {paragraph}
-                </p>
-              ))
-            ) : (
-              <p className="text-text-main">{art.excerpt}</p>
-            )}
-          </div>
-        )
-      }));
-      return [...articlesData, ...formatted];
-    }
-  } catch (e) {
-    console.error('Error loading custom articles', e);
+    const raw = localStorage.getItem('slowmundo_custom_articles');
+    if (!raw) return articlesData;
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return articlesData;
+    const validated = parsed
+      .map((item) => StoredArticleSchema.safeParse(item))
+      .filter((r) => r.success)
+      .map((r) => r.data);
+    const formatted: Article[] = validated.map((art) => ({
+      ...art,
+      content: () => (
+        <div className="space-y-4">
+          {art.bodyContent ? (
+            art.bodyContent.split('\n\n').map((paragraph, idx) => (
+              <p key={idx} className="mb-4 leading-relaxed text-text-main text-base">
+                {paragraph}
+              </p>
+            ))
+          ) : (
+            <p className="text-text-main">{art.excerpt}</p>
+          )}
+        </div>
+      ),
+    })) as Article[];
+    return [...articlesData, ...formatted];
+  } catch {
+    // JSON.parse failure or storage unavailable — fall through
   }
   return articlesData;
 }

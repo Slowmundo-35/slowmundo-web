@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, MapPin, Clock, Train, Check, X, Star, Home, Calendar, ChevronDown, ChevronUp, Download, ChevronLeft, ChevronRight, Compass } from 'lucide-react';
 import { TRIPS, Trip, ItineraryDay, getStoredTrips, getTripByCountryAndSlug } from '@/data/trips';
 import { TripContactForm } from '@/components/TripContactForm';
+import ShareButton from '@/components/ShareButton';
 import type { MapWaypoint } from '@/components/InteractiveItineraryMap';
 
 // Leaflet touches window at module load → skip SSR
@@ -872,12 +873,15 @@ export default function VoyageDetails() {
             <ArrowLeft className="w-4 h-4" /> Retour aux voyages
           </Link>
 
-          <button
-            onClick={() => alert(`Téléchargement de la brochure pour : ${trip.title}`)}
-            className="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-primary-hover transition-all duration-300 shadow-md hover:shadow-lg"
-          >
-            <Download className="w-4 h-4" /> Télécharger la brochure
-          </button>
+          <div className="flex items-center gap-3">
+            <ShareButton title={trip.title} />
+            <button
+              onClick={() => alert(`Téléchargement de la brochure pour : ${trip.title}`)}
+              className="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-primary-hover transition-all duration-300 shadow-md hover:shadow-lg"
+            >
+              <Download className="w-4 h-4" /> Télécharger la brochure
+            </button>
+          </div>
         </div>
 
         {/* Main Hero Header */}

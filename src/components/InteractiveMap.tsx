@@ -12,7 +12,9 @@ import { useRouter } from 'next/navigation';
 import { countryTranslations } from '@/data/countries';
 import { slugify } from '@/utils/slugify';
 
-const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
+// Self-hosted world-atlas topojson (was https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json).
+// Removes an external CDN dependency (SRI risk) and lets CSP stay tight.
+const geoUrl = "/data/countries-50m.json";
 
 interface InteractiveMapProps {
   region: 'europe' | 'asia';

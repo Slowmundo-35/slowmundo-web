@@ -1,4 +1,31 @@
+import { z } from 'zod';
 import { slugify } from '@/utils/slugify';
+
+/**
+ * Validation schema for a Trip stored in localStorage.
+ * Anyone can write to localStorage via DevTools or an XSS in the future,
+ * so we treat the parsed content as untrusted input.
+ */
+const StoredTripSchema = z.object({
+  id: z.number().int(),
+  title: z.string().min(1).max(300),
+  image: z.string().min(1).max(600),
+  continent: z.string().min(1).max(60),
+  country: z.string().min(1).max(60),
+  type: z.string().min(1).max(100),
+  transport: z.string().min(1).max(100),
+  duration: z.string().min(1).max(60),
+  tag: z.string().max(60),
+  price: z.number().nonnegative(),
+  description: z.string().max(3000).optional(),
+  images: z.array(z.string().max(600)).max(20).optional(),
+  accommodation: z.string().max(200).optional(),
+  idealPeriod: z.string().max(200).optional(),
+  highlights: z.array(z.string().max(400)).max(30).optional(),
+  included: z.array(z.string().max(400)).max(50).optional(),
+  notIncluded: z.array(z.string().max(400)).max(50).optional(),
+  itinerary: z.array(z.any()).max(100).optional(),
+});
 
 export interface ItineraryActivity {
   time: string;
@@ -296,13 +323,22 @@ export function getStoredTrips(): Trip[] {
   // Guard SSR : localStorage is client-only.
   if (typeof window === 'undefined') return TRIPS;
   try {
-    const custom = localStorage.getItem('slowmundo_custom_trips');
-    if (custom) {
-      const parsed = JSON.parse(custom);
-      return [...TRIPS, ...parsed];
+    const raw = localStorage.getItem('slowmundo_custom_trips');
+    if (!raw) return TRIPS;
+    const parsed = JSON.parse(raw);
+    // Only keep entries that pass the schema — silently drop the rest.
+    const safeTrips = z.array(StoredTripSchema).safeParse(parsed);
+    if (safeTrips.success) return [...TRIPS, ...(safeTrips.data as Trip[])];
+    // Partial success: filter valid ones from a mixed array
+    if (Array.isArray(parsed)) {
+      const valid = parsed
+        .map((item) => StoredTripSchema.safeParse(item))
+        .filter((r) => r.success)
+        .map((r) => r.data as Trip);
+      return [...TRIPS, ...valid];
     }
-  } catch (e) {
-    console.error('Error reading custom trips from localStorage', e);
+  } catch {
+    // JSON.parse failure or storage unavailable — fall through
   }
   return TRIPS;
 }
