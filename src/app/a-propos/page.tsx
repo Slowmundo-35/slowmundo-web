@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImages } from "@/lib/seo";
 import AProposClient from "./AProposClient";
 
 export const metadata: Metadata = {
@@ -10,6 +11,10 @@ export const metadata: Metadata = {
     title: "Agence de voyage bas carbone à Rennes | Slowmundo",
     description:
       "Notre approche du slow tourisme et notre vision d'un voyage éco responsable en train, avec Alexis à Rennes.",
+    images: ogImages(
+      "/img/slowmundo/alexis-portrait.webp",
+      "Alexis, fondateur de Slowmundo"
+    ),
   },
 };
 

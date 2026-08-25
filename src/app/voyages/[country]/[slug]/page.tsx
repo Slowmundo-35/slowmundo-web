@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getCountrySlug, getTripByCountryAndSlug, getTripSlug } from "@/data/trips";
 import JsonLd from "@/components/JsonLd";
-import { breadcrumbSchema, tripSchema } from "@/lib/seo";
+import { breadcrumbSchema, ogImages, tripSchema } from "@/lib/seo";
 import VoyageDetailsClient from "./VoyageDetailsClient";
 
 type Params = { country: string; slug: string };
@@ -37,8 +37,14 @@ export async function generateMetadata({
     openGraph: {
       title: trip.title,
       description: rawDescription,
-      images: [trip.image],
       type: "website",
+      images: ogImages(trip.image, `${trip.title} — Slowmundo`),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: trip.title,
+      description: rawDescription,
+      images: [trip.image],
     },
   };
 }

@@ -4,7 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import JsonLd from "@/components/JsonLd";
-import { travelAgencySchema } from "@/lib/seo";
+import { OG_DEFAULT_IMAGE, travelAgencySchema } from "@/lib/seo";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -51,12 +51,19 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     siteName: "Slowmundo",
     url: "https://www.slowmundo.fr",
+    images: [
+      {
+        url: OG_DEFAULT_IMAGE,
+        alt: "Slowmundo — Agence de voyage bas carbone en train",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Slowmundo — Agence de voyage bas carbone en train",
     description:
       "Voyage éco responsable en train à travers l'Europe et l'Asie. Voyages personnalisés en slow tourisme.",
+    images: [OG_DEFAULT_IMAGE],
   },
   robots: { index: true, follow: true },
   category: "travel",

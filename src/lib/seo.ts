@@ -5,6 +5,14 @@ import { getCountrySlug, getTripSlug } from "@/data/trips";
 export const SITE_URL = "https://www.slowmundo.fr";
 export const SITE_NAME = "Slowmundo";
 
+/** Fallback OG image used when a page doesn't ship its own. Raw Slowmundo photo, no overlay. */
+export const OG_DEFAULT_IMAGE = "/img/slowmundo/gotthard-tessin/ascona-lac-majeur.webp";
+
+/** Wrap a single OG image URL in the shape Next expects for `metadata.openGraph.images`. */
+export function ogImages(url: string, alt: string) {
+  return [{ url, width: 1200, height: 630, alt }];
+}
+
 /** JSON-LD schema.org — Slowmundo as a TravelAgency (site-wide). */
 export const travelAgencySchema = {
   "@context": "https://schema.org",

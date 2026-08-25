@@ -3,7 +3,7 @@ import { getTripsByCountrySlug, TRIPS } from "@/data/trips";
 import { countryTranslations } from "@/data/countries";
 import { slugify } from "@/utils/slugify";
 import JsonLd from "@/components/JsonLd";
-import { breadcrumbSchema } from "@/lib/seo";
+import { breadcrumbSchema, OG_DEFAULT_IMAGE, ogImages } from "@/lib/seo";
 import CountryClient from "./CountryClient";
 
 type Params = { country: string };
@@ -47,6 +47,8 @@ export async function generateMetadata({
       ? `découvrez notre itinéraire`
       : `découvrez nos ${count} itinéraires`;
   const ogLead = count === 1 ? "Notre itinéraire" : `Nos ${count} itinéraires`;
+  // Use the first available trip photo for the country, else the fallback.
+  const heroImage = trips[0]?.image ?? OG_DEFAULT_IMAGE;
   return {
     title: `Voyage organisé en train en ${pretty}`,
     description: `Voyage organisé en train en ${pretty} : ${descLead} bas carbone Slowmundo. Voyage éco responsable et slow tourisme.`,
@@ -54,6 +56,7 @@ export async function generateMetadata({
     openGraph: {
       title: `Voyage organisé en train en ${pretty} | Slowmundo`,
       description: `${ogLead} bas carbone en ${pretty}, en train et en slow tourisme.`,
+      images: ogImages(heroImage, `Voyage bas carbone en ${pretty} — Slowmundo`),
     },
   };
 }

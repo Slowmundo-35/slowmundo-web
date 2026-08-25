@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { OG_DEFAULT_IMAGE, ogImages } from "@/lib/seo";
 import VoyagesClient from "./VoyagesClient";
 
 export const metadata: Metadata = {
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
     title: "Voyages organisés en train en Europe & Asie | Slowmundo",
     description:
       "Nos itinéraires bas carbone en train à travers l'Europe et l'Asie, en slow tourisme.",
+    images: ogImages(OG_DEFAULT_IMAGE, "Nos voyages Slowmundo"),
   },
 };
 

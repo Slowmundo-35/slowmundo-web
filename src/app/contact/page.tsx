@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImages } from "@/lib/seo";
 import ContactClient from "./ContactClient";
 
 export const metadata: Metadata = {
@@ -10,6 +11,10 @@ export const metadata: Metadata = {
     title: "Contact | Slowmundo",
     description:
       "Créez votre voyage bas carbone sur mesure en train. Devis gratuit avec Alexis, à Rennes.",
+    images: ogImages(
+      "/img/slowmundo/alexis-devant-train.webp",
+      "Contactez Alexis, fondateur de Slowmundo"
+    ),
   },
 };
 

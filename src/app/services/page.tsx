@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImages } from "@/lib/seo";
 import ServicesClient from "./ServicesClient";
 
 export const metadata: Metadata = {
@@ -10,6 +11,10 @@ export const metadata: Metadata = {
     title: "Voyage bas carbone sur mesure | Slowmundo",
     description:
       "Itinéraires ferroviaires, hébergements engagés, accompagnement de A à Z. Slowmundo, votre agence de voyage bas carbone.",
+    images: ogImages(
+      "/img/slowmundo/train-europe.webp",
+      "Slowmundo — voyage bas carbone sur mesure"
+    ),
   },
 };
 
