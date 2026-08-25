@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Blog & inspirations",
   description:
     "Articles, guides et inspirations pour voyager bas carbone : itinéraires en train, écotourisme, slow travel en Europe et en Asie.",
+  alternates: { canonical: "/blog" },
 };
 
 export default function Page() {

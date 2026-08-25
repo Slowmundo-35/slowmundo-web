@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Slowmundo — Voyager autrement",
   description:
     "Slowmundo, agence de voyage bas carbone à Rennes. Organisation de voyages personnalisés en Europe et en Asie, en train et en slow travel.",
+  alternates: { canonical: "/" },
 };
 
 export default function Page() {

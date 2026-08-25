@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Nos voyages",
   description:
     "Découvrez tous les voyages bas carbone Slowmundo — itinéraires en train à travers l'Europe et l'Asie, filtrables par pays, style et durée.",
+  alternates: { canonical: "/voyages" },
 };
 
 export default function Page() {

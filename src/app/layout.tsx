@@ -3,6 +3,8 @@ import { Nunito, Quicksand } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/layout/ScrollToTop";
+import JsonLd from "@/components/JsonLd";
+import { travelAgencySchema } from "@/lib/seo";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -45,6 +47,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${nunito.variable} ${quicksand.variable}`}>
       <body>
+        <JsonLd data={travelAgencySchema} />
         <ScrollToTop />
         <div className="flex flex-col min-h-screen">
           <Navbar />
