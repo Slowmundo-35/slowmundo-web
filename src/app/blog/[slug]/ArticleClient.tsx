@@ -116,9 +116,9 @@ export default function Article() {
               <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-gray-200/80 mb-8">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-primary/20 text-primary font-bold flex items-center justify-center overflow-hidden border border-primary/30">
-                    <img 
-                      src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop" 
-                      alt="Alexis - Fondateur"
+                    <img
+                      src="/img/slowmundo/alexis-portrait.webp"
+                      alt="Alexis, fondateur de Slowmundo"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -178,9 +178,9 @@ export default function Article() {
             {/* Author Bio Card */}
             <div className="mt-16 bg-white border border-gray-200/80 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 shadow-xs">
               <div className="w-20 h-20 rounded-full overflow-hidden shrink-0 border-2 border-primary shadow-sm">
-                <img 
-                  src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=300&auto=format&fit=crop" 
-                  alt="Alexis - Fondateur" 
+                <img
+                  src="/img/slowmundo/alexis-portrait.webp"
+                  alt="Alexis, fondateur de Slowmundo"
                   className="w-full h-full object-cover"
                 />
               </div>

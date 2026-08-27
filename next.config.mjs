@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 const isDev = process.env.NODE_ENV !== "production";
 
 /**
@@ -54,6 +58,8 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,   // stop leaking "X-Powered-By: Next.js"
+  // Pin the workspace root — Next was picking up ~/package-lock.json by mistake.
+  outputFileTracingRoot: projectRoot,
   async headers() {
     return [
       {
