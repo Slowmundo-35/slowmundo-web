@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Nunito, Quicksand } from "next/font/google";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import ScrollToTop from "@/components/layout/ScrollToTop";
+import SiteChrome from "@/components/layout/SiteChrome";
 import JsonLd from "@/components/JsonLd";
 import { OG_DEFAULT_IMAGE, travelAgencySchema } from "@/lib/seo";
 import "./globals.css";
@@ -76,14 +74,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={`${nunito.variable} ${quicksand.variable}`}>
-      <body>
+      {/* suppressHydrationWarning: browser extensions (ColorZilla, Grammarly…)
+          inject attributes on <body> before React hydrates. */}
+      <body suppressHydrationWarning>
         <JsonLd data={travelAgencySchema} />
-        <ScrollToTop />
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </div>
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

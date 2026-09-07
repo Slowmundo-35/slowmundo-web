@@ -57,7 +57,7 @@ export default function MentionsLegales() {
             <h2 className="text-xl font-bold mb-4">4. Contact</h2>
             <p>
               Pour toute question ou demande concernant le site, vous pouvez nous contacter :<br />
-              Par email : alexisjupin@gmail.com<br />
+              Par email : contact@slowmundo.fr<br />
               Par téléphone : 06 76 37 18 39
             </p>
           </div>

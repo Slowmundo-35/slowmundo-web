@@ -2,11 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, MapPin, Clock, Train, Check, X, Star, Home, Calendar, ChevronDown, ChevronUp, Download, ChevronLeft, ChevronRight, Compass } from 'lucide-react';
-import { TRIPS, Trip, ItineraryDay, getStoredTrips, getTripByCountryAndSlug } from '@/data/trips';
+import type { Trip, ItineraryDay } from '@/data/trips';
 import { TripContactForm } from '@/components/TripContactForm';
 import ShareButton from '@/components/ShareButton';
 import type { MapWaypoint } from '@/components/InteractiveItineraryMap';
@@ -803,15 +802,13 @@ function buildRichItinerary(trip: Trip): ItineraryDay[] {
   });
 }
 
-export default function VoyageDetails() {
-  const { country, slug } = useParams<{ country: string; slug: string }>();
+export default function VoyageDetails({ trip }: { trip: Trip | null }) {
   const [showFullItinerary, setShowFullItinerary] = useState(false);
   const [activeMapDay, setActiveMapDay] = useState<number>(1);
-  const trip = getTripByCountryAndSlug(country, slug, getStoredTrips());
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [country, slug]);
+  }, [trip?.id]);
 
   if (!trip) {
     return (
@@ -875,12 +872,26 @@ export default function VoyageDetails() {
 
           <div className="flex items-center gap-3">
             <ShareButton title={trip.title} />
-            <button
-              onClick={() => alert(`Téléchargement de la brochure pour : ${trip.title}`)}
-              className="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-primary-hover transition-all duration-300 shadow-md hover:shadow-lg"
-            >
-              <Download className="w-4 h-4" /> Télécharger la brochure
-            </button>
+            {trip.brochure ? (
+              <a
+                href={trip.brochure}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-primary-hover transition-all duration-300 shadow-md hover:shadow-lg"
+              >
+                <Download className="w-4 h-4" /> Télécharger la brochure
+              </a>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="inline-flex items-center gap-2 bg-gray-300 text-white px-5 py-2.5 rounded-xl font-bold text-sm cursor-not-allowed"
+                title="Brochure PDF bientôt disponible"
+              >
+                <Download className="w-4 h-4" /> Brochure à venir
+              </button>
+            )}
           </div>
         </div>
 

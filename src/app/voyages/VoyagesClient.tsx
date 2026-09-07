@@ -7,8 +7,12 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import Select from '@/components/ui/Select';
-import { TRIPS, getStoredTrips } from '@/data/trips';
+import type { Trip } from '@/data/trips';
 import { slugify } from '@/utils/slugify';
+
+interface VoyagesClientProps {
+  trips: Trip[];
+}
 
 function getDaysCount(durationStr: string): number {
   if (!durationStr) return 7;
@@ -32,19 +36,19 @@ function matchesDurationFilter(durationStr: string, filterVal: string): boolean 
   return true;
 }
 
-export default function Voyages() {
-  
+export default function Voyages({ trips }: VoyagesClientProps) {
+
   const searchParams = useSearchParams();
   const urlCountry = searchParams?.get('country') ?? null;
   const urlType = searchParams?.get('type') ?? null;
 
   const [filterRegion, setFilterRegion] = useState(() => {
     if (urlCountry) {
-      const trip = TRIPS.find(t => t.country === urlCountry);
+      const trip = trips.find(t => t.country === urlCountry);
       if (trip) return trip.continent;
     }
     if (urlType) {
-      const trip = TRIPS.find(t => t.type === urlType);
+      const trip = trips.find(t => t.type === urlType);
       if (trip) return trip.continent;
     }
     return 'Tout';
@@ -53,22 +57,21 @@ export default function Voyages() {
   const [filterType, setFilterType] = useState(urlType || 'Tous');
   const [filterDuration, setFilterDuration] = useState('Toutes');
 
-  // We could also do an effect to sync URL changes if the user navigates while on the same page
+  // Sync filter state when the URL changes on the same page
   useEffect(() => {
     if (urlCountry) {
       setFilterCountry(urlCountry);
-      const trip = TRIPS.find(t => t.country === urlCountry);
+      const trip = trips.find(t => t.country === urlCountry);
       if (trip) setFilterRegion(trip.continent);
     }
     if (urlType) {
       setFilterType(urlType);
-      const trip = TRIPS.find(t => t.type === urlType);
+      const trip = trips.find(t => t.type === urlType);
       if (trip && !urlCountry) setFilterRegion(trip.continent);
     }
-  }, [urlCountry, urlType]);
+  }, [urlCountry, urlType, trips]);
 
-
-  const allTrips = getStoredTrips();
+  const allTrips = trips;
   const filteredTrips = allTrips.filter(trip => {
     if (filterRegion !== 'Tout' && trip.continent !== filterRegion) return false;
     if (filterCountry !== 'Toutes' && trip.country !== filterCountry) return false;
@@ -287,11 +290,11 @@ export default function Voyages() {
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-white/10 blur-3xl pointer-events-none" />
 
           {/* Photo side */}
-          <div className="w-full md:w-5/12 h-48 md:h-auto relative">
-             <img 
-               src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800&auto=format&fit=crop" 
-               alt="Vue spectaculaire sur un lac de montagne"
-               className="w-full h-full object-cover"
+          <div className="w-full md:w-5/12 h-48 md:h-auto md:self-stretch relative overflow-hidden">
+             <img
+               src="/img/slowmundo/gotthard-tessin/locarno-lac-majeur.webp"
+               alt="Locarno et le lac Majeur — voyage bas carbone Slowmundo"
+               className="absolute inset-0 w-full h-full object-cover"
              />
           </div>
 

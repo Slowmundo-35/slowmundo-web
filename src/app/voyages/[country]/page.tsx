@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
-import { getTripsByCountrySlug, TRIPS } from "@/data/trips";
 import { countryTranslations } from "@/data/countries";
 import { slugify } from "@/utils/slugify";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema, OG_DEFAULT_IMAGE, ogImages } from "@/lib/seo";
+import { getTripsByCountrySlug } from "@/lib/sanity.queries";
 import CountryClient from "./CountryClient";
 
 type Params = { country: string };
 
-/** Prettify a country slug for display : "pays-bas" → "Pays-Bas", "grece" → "Grèce" */
-function prettify(slug: string, trips = TRIPS): string {
-  // 1st: a real trip's country (Sanity/TRIPS is source of truth once populated)
-  const tripMatch = trips.find((t) => slugify(t.country) === slug.toLowerCase());
-  if (tripMatch) return tripMatch.country;
-  // 2nd: the shared French country dictionary
+/**
+ * Prettify a country slug for display : "pays-bas" → "Pays-Bas", "grece" → "Grèce".
+ * Prefers a real trip's country name, then the shared French dictionary, then
+ * naïve capitalisation.
+ */
+function prettify(slug: string, tripCountry?: string): string {
+  if (tripCountry) return tripCountry;
   const dictMatch = Object.values(countryTranslations).find(
     (fr) => slugify(fr) === slug.toLowerCase()
   );
   if (dictMatch) return dictMatch;
-  // Fallback: naïve capitalization
   return slug
     .split("-")
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
@@ -31,8 +31,8 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { country } = await params;
-  const pretty = prettify(country);
-  const trips = getTripsByCountrySlug(country);
+  const trips = await getTripsByCountrySlug(country);
+  const pretty = prettify(country, trips[0]?.country);
   const canonical = `/voyages/${country}`;
   if (trips.length === 0) {
     return {
@@ -43,11 +43,8 @@ export async function generateMetadata({
   }
   const count = trips.length;
   const descLead =
-    count === 1
-      ? `découvrez notre itinéraire`
-      : `découvrez nos ${count} itinéraires`;
+    count === 1 ? `découvrez notre itinéraire` : `découvrez nos ${count} itinéraires`;
   const ogLead = count === 1 ? "Notre itinéraire" : `Nos ${count} itinéraires`;
-  // Use the first available trip photo for the country, else the fallback.
   const heroImage = trips[0]?.image ?? OG_DEFAULT_IMAGE;
   return {
     title: `Voyage organisé en train en ${pretty}`,
@@ -63,7 +60,8 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { country } = await params;
-  const pretty = prettify(country);
+  const trips = await getTripsByCountrySlug(country);
+  const pretty = prettify(country, trips[0]?.country);
   return (
     <>
       <JsonLd
@@ -73,7 +71,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
           { name: `Voyages en ${pretty}`, url: `/voyages/${country}` },
         ])}
       />
-      <CountryClient countrySlug={country} countryName={pretty} />
+      <CountryClient countrySlug={country} countryName={pretty} trips={trips} />
     </>
   );
 }

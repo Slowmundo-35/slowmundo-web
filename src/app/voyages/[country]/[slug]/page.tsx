@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { getCountrySlug, getTripByCountryAndSlug, getTripSlug } from "@/data/trips";
+import { getCountrySlug, getTripSlug } from "@/data/trips";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema, ogImages, tripSchema } from "@/lib/seo";
+import { getTripByCountryAndSlug } from "@/lib/sanity.queries";
 import VoyageDetailsClient from "./VoyageDetailsClient";
 
 type Params = { country: string; slug: string };
@@ -12,12 +13,11 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { country, slug } = await params;
-  const trip = getTripByCountryAndSlug(country, slug);
+  const trip = await getTripByCountryAndSlug(country, slug);
   if (!trip) {
     return { title: "Voyage introuvable" };
   }
   const canonical = `/voyages/${getCountrySlug(trip)}/${getTripSlug(trip)}`;
-  // Prefix the description with the target keyword when it's absent, so meta stays SEO-focused.
   const rawDescription =
     trip.description?.slice(0, 200) ??
     `Voyage bas carbone en ${trip.country} : notre itinéraire ${trip.title}, en train et en slow tourisme.`;
@@ -51,7 +51,7 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { country, slug } = await params;
-  const trip = getTripByCountryAndSlug(country, slug);
+  const trip = await getTripByCountryAndSlug(country, slug);
 
   return (
     <>
@@ -68,7 +68,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
           />
         </>
       )}
-      <VoyageDetailsClient />
+      <VoyageDetailsClient trip={trip} />
     </>
   );
 }

@@ -3,15 +3,16 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Clock, Leaf, MapPin } from "lucide-react";
-import { getStoredTrips, getTripSlug, getTripsByCountrySlug } from "@/data/trips";
+import type { Trip } from "@/data/trips";
+import { getTripSlug } from "@/data/trips";
 
 interface CountryClientProps {
   countrySlug: string;
   countryName: string;
+  trips: Trip[];
 }
 
-export default function CountryClient({ countrySlug, countryName }: CountryClientProps) {
-  const trips = getTripsByCountrySlug(countrySlug, getStoredTrips());
+export default function CountryClient({ countrySlug, countryName, trips }: CountryClientProps) {
 
   return (
     <main className="w-full pt-32 md:pt-40 pb-16 min-h-screen">

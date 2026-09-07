@@ -54,7 +54,7 @@ export default function PolitiqueConfidentialite() {
           <div>
             <h2 className="text-xl font-bold mb-4">4. Droits des utilisateurs</h2>
             <p>
-              Conformément à la réglementation applicable (RGPD), vous disposez d'un droit d'accès, de rectification, de suppression et de portabilité de vos données. Vous pouvez exercer ces droits en nous contactant à l'adresse suivante : alexisjupin@gmail.com
+              Conformément à la réglementation applicable (RGPD), vous disposez d'un droit d'accès, de rectification, de suppression et de portabilité de vos données. Vous pouvez exercer ces droits en nous contactant à l'adresse suivante : contact@slowmundo.fr
             </p>
           </div>
 

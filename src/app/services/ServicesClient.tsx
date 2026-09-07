@@ -37,15 +37,15 @@ const Services = () => {
 
   const sliderImages = [
     {
-      url: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop",
+      url: "/img/slowmundo/gotthard-tessin/intragna-train-centovalli.webp",
       caption: "Transports bas carbone prioritaires (train, ferry)"
     },
     {
-      url: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800&auto=format&fit=crop",
+      url: "/img/slowmundo/gotthard-tessin/morcote-eglise-santa-maria.webp",
       caption: "Hébergements écoresponsables sélectionnés avec soin"
     },
     {
-      url: "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=800&auto=format&fit=crop",
+      url: "/img/slowmundo/gotthard-tessin/bellinzona-place-centrale.webp",
       caption: "Carnet de voyage digital sur-mesure & interactif"
     }
   ];
@@ -127,10 +127,10 @@ const Services = () => {
             </div>
             <div className="w-full md:w-1/2">
               <div className="w-full max-w-[400px] mx-auto aspect-[4/3] rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-gray-100 group">
-                <img 
-                  src="https://images.unsplash.com/photo-1506125840744-167167210587?q=80&w=800&auto=format&fit=crop" 
-                  alt="Paysage vu depuis un tunnel" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                <img
+                  src="/img/slowmundo/paysage-italie-mer.webp"
+                  alt="Paysage italien au bord du lac — voyage inspirant en train"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
             </div>
@@ -157,10 +157,10 @@ const Services = () => {
             </div>
             <div className="w-full md:w-1/2">
               <div className="w-full max-w-[400px] mx-auto aspect-[4/3] rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-gray-100 group">
-                <img 
-                  src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800&auto=format&fit=crop" 
-                  alt="Préparation et conception d'un itinéraire de voyage" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                <img
+                  src="/img/slowmundo/alexis-monte-dans-train.webp"
+                  alt="Alexis prépare l'itinéraire de voyage bas carbone"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
             </div>
@@ -187,10 +187,10 @@ const Services = () => {
             </div>
             <div className="w-full md:w-1/2">
               <div className="w-full max-w-[400px] mx-auto aspect-[4/3] rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-gray-100 group">
-                <img 
-                  src="https://images.unsplash.com/photo-1480796927426-f609979314bd?q=80&w=800&auto=format&fit=crop" 
-                  alt="Rue animée au Japon" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                <img
+                  src="/img/slowmundo/gotthard-tessin/ascona-ville.webp"
+                  alt="Ville d'Ascona sur le lac Majeur — voyage sécurisé Slowmundo"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
             </div>
@@ -217,10 +217,10 @@ const Services = () => {
             </div>
             <div className="w-full md:w-1/2">
               <div className="w-full max-w-[400px] mx-auto aspect-[4/3] rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-gray-100 group">
-                <img 
-                  src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=800&auto=format&fit=crop" 
-                  alt="Temple au Japon" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                <img
+                  src="/img/slowmundo/gotthard-tessin/sonogno-village.webp"
+                  alt="Village authentique de Sonogno — exploration en indépendance"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
             </div>
@@ -378,44 +378,29 @@ const Services = () => {
         >
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-white/10 blur-3xl pointer-events-none" />
 
-          <div className="w-full md:w-5/12 h-64 md:h-auto relative">
-             <img 
-               src="https://images.unsplash.com/photo-1480796927426-f609979314bd?q=80&w=800&auto=format&fit=crop" 
-               alt="Tramway en ville" 
-               className="w-full h-full object-cover"
+          <div className="w-full md:w-5/12 h-48 md:h-auto md:self-stretch relative overflow-hidden">
+             <img
+               src="/img/slowmundo/train-europe.webp"
+               alt="Train de voyage en Europe — slow tourisme éco responsable"
+               className="absolute inset-0 w-full h-full object-cover"
              />
              <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-primary/80 to-transparent" />
           </div>
 
-          <div className="w-full md:w-7/12 p-8 md:p-12 lg:p-14 flex flex-col justify-center relative z-10">
+          <div className="w-full md:w-7/12 p-8 md:p-12 flex flex-col justify-center relative z-10">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-200 mb-3">Voyagez Autrement</span>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 leading-tight">
               Prêt à tenter l'expérience du slow tourisme ?
             </h2>
-            <p className="text-white/90 text-sm md:text-base mb-8 leading-relaxed max-w-lg">
+            <p className="text-white/90 text-[15px] md:text-base mb-6 md:mb-8 leading-relaxed max-w-lg">
               Ensemble, dessinons un itinéraire sur mesure qui respecte vos valeurs et votre budget.
             </p>
-            <form 
-              className="flex flex-col sm:flex-row gap-3 w-full max-w-md" 
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert('Merci ! Notre catalogue a été envoyé à votre adresse e-mail.');
-                (e.target as HTMLFormElement).reset();
-              }}
+            <Link
+              href="/contact"
+              className="inline-block bg-black text-white font-bold py-2.5 px-6 rounded-lg hover:bg-gray-900 transition-all duration-300 shadow-md hover:shadow-lg text-base w-fit"
             >
-              <input 
-                type="email" 
-                placeholder="Votre adresse e-mail" 
-                className="flex-1 px-4 py-3.5 rounded-xl text-text-main focus:outline-none focus:ring-2 focus:ring-black" 
-                required 
-              />
-              <button 
-                type="submit" 
-                className="bg-black text-white font-bold py-3.5 px-6 md:px-7 rounded-xl hover:bg-gray-900 transition-all duration-300 shadow-xl text-sm md:text-base whitespace-nowrap inline-flex items-center justify-center text-center"
-              >
-                <span>Télécharger notre catalogue</span>
-              </button>
-            </form>
+              Demander mon carnet de voyage sur mesure
+            </Link>
           </div>
         </motion.div>
       </section>

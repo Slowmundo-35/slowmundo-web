@@ -94,7 +94,7 @@ export default function Footer() {
           <h4 className="text-[16px] font-semibold mb-6 underline underline-offset-4 decoration-white/50">Contact</h4>
           <ul className="space-y-4 text-[15px] text-white/90">
             <li><a href="tel:0676371839" className="hover:text-white transition-colors">06 76 37 18 39</a></li>
-            <li><a href="mailto:alexisjupin@gmail.com" className="hover:text-white transition-colors">alexisjupin@gmail.com</a></li>
+            <li><a href="mailto:contact@slowmundo.fr" className="hover:text-white transition-colors">contact@slowmundo.fr</a></li>
           </ul>
           <div className="flex gap-4 mt-6">
             <a href="#" className="w-8 h-8 rounded-full bg-white text-primary flex items-center justify-center hover:bg-gray-100 transition-colors" aria-label="Facebook">

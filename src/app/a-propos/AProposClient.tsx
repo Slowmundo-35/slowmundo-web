@@ -300,30 +300,30 @@ export default function APropos() {
           {/* Decorative background shape */}
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-white/10 blur-3xl pointer-events-none" />
 
-          {/* Photo side */}
-          <div className="w-full md:w-5/12 h-64 md:h-auto relative">
-             <img 
-               src="https://images.unsplash.com/photo-1480796927426-f609979314bd?q=80&w=800&auto=format&fit=crop" 
-               alt="Tramway en ville" 
-               className="w-full h-full object-cover"
+          {/* Photo side — absolute-fill so the (portrait) photo stretches to sibling height */}
+          <div className="w-full md:w-5/12 h-48 md:h-auto md:self-stretch relative overflow-hidden">
+             <img
+               src="/img/slowmundo/train-europe.webp"
+               alt="Train de voyage en Europe — slow tourisme éco responsable"
+               className="absolute inset-0 w-full h-full object-cover"
              />
              <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-primary/80 to-transparent" />
           </div>
 
           {/* Content side */}
-          <div className="w-full md:w-7/12 p-8 md:p-12 lg:p-14 flex flex-col justify-center relative z-10">
+          <div className="w-full md:w-7/12 p-8 md:p-12 flex flex-col justify-center relative z-10">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-200 mb-3">Commençons l'aventure</span>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 leading-tight">
               Prêt à tenter l'expérience du slow tourisme ?
             </h2>
-            <p className="text-white/90 text-sm md:text-base mb-8 leading-relaxed max-w-lg">
+            <p className="text-white/90 text-[15px] md:text-base mb-6 md:mb-8 leading-relaxed max-w-lg">
               Ensemble, dessinons un itinéraire sur mesure qui respecte vos valeurs, vos envies et votre budget.
             </p>
-            <Link 
+            <Link
               href="/contact"
-              className="bg-black text-white font-bold py-3.5 px-6 md:px-7 rounded-xl hover:bg-gray-900 transition-all duration-300 shadow-xl text-sm md:text-base w-fit inline-flex items-center justify-center text-center max-w-[90vw]"
+              className="inline-block bg-black text-white font-bold py-2.5 px-6 rounded-lg hover:bg-gray-900 transition-all duration-300 shadow-md hover:shadow-lg text-base w-fit"
             >
-              <span>Demander mon carnet de voyage sur mesure</span>
+              Demander mon carnet de voyage sur mesure
             </Link>
           </div>
         </motion.div>

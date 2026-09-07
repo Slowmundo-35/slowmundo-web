@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
-import { TRIPS, getCountrySlug, getTripSlug } from "@/data/trips";
+import { getAllTripSlugs } from "@/lib/sanity.queries";
 import { articlesData } from "@/data/articlesData";
 
 const BASE_URL = "https://www.slowmundo.fr";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   // Fixed public routes (excludes legal pages which are noindex)
@@ -17,8 +17,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
   ];
 
-  // Distinct country pages derived from TRIPS
-  const countrySlugs = Array.from(new Set(TRIPS.map(getCountrySlug)));
+  // Trips + per-country listing pages, all derived from Sanity
+  const tripPairs = await getAllTripSlugs();
+  const countrySlugs = Array.from(new Set(tripPairs.map((p) => p.country)));
+
   const countryRoutes: MetadataRoute.Sitemap = countrySlugs.map((slug) => ({
     url: `${BASE_URL}/voyages/${slug}`,
     lastModified: now,
@@ -26,16 +28,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Every trip detail page
-  const tripRoutes: MetadataRoute.Sitemap = TRIPS.map((trip) => ({
-    url: `${BASE_URL}/voyages/${getCountrySlug(trip)}/${getTripSlug(trip)}`,
+  const tripRoutes: MetadataRoute.Sitemap = tripPairs.map(({ country, slug }) => ({
+    url: `${BASE_URL}/voyages/${country}/${slug}`,
     lastModified: now,
     changeFrequency: "monthly",
     priority: 0.85,
   }));
 
-  // Every article — article.date is a display string ("12 Mai 2024"),
-  // not an ISO date, so we fall back to `now` when Date parsing fails.
+  // Articles remain in-code for now (blog will move to Sanity in a next pass).
   const articleRoutes: MetadataRoute.Sitemap = articlesData.map((article) => {
     const parsed = article.date ? new Date(article.date) : null;
     return {

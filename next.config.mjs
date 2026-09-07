@@ -7,15 +7,15 @@ const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 const isDev = process.env.NODE_ENV !== "production";
 
 /**
- * Content Security Policy — strict-by-default with only the origins the
- * site actually uses. In development we relax `script-src` and `style-src`
- * to allow Next Fast Refresh's inline / eval'd HMR payload.
+ * Public site CSP — strict-by-default with only the origins the site uses.
+ * `/studio/*` (Sanity) gets a much looser CSP via a separate matcher below.
  */
-const cspDirectives = {
+const publicCspDirectives = {
   "default-src": ["'self'"],
   "script-src": [
     "'self'",
     "'unsafe-inline'",             // Next injects small inline bootstraps
+    "https://core.sanity-cdn.com", // Sanity preview / visual editing bridge
     ...(isDev ? ["'unsafe-eval'"] : []),
   ],
   "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
@@ -26,10 +26,14 @@ const cspDirectives = {
     "https://images.unsplash.com",           // trip / blog placeholder images
     "https://*.tile.openstreetmap.org",       // Leaflet OSM tiles
     "https://*.basemaps.cartocdn.com",        // Leaflet CartoDB tiles
+    "https://cdn.sanity.io",                  // Sanity images CDN
   ],
   "font-src": ["'self'", "data:", "https://fonts.gstatic.com"],
   "connect-src": [
     "'self'",
+    "https://*.apicdn.sanity.io",             // Sanity GROQ queries (CDN)
+    "https://*.api.sanity.io",                // Sanity GROQ queries (direct)
+    "https://core.sanity-cdn.com",            // Sanity preview bridge
     ...(isDev ? ["ws://localhost:5173", "http://localhost:5173"] : []),
   ],
   "frame-ancestors": ["'none'"],              // no external iframe embedding
@@ -39,12 +43,41 @@ const cspDirectives = {
   ...(isDev ? {} : { "upgrade-insecure-requests": [] }),
 };
 
-const csp = Object.entries(cspDirectives)
-  .map(([k, v]) => (v.length ? `${k} ${v.join(" ")}` : k))
-  .join("; ");
+/**
+ * Studio CSP — Sanity Studio is a complex SPA that needs eval, blob
+ * workers, WebSockets, and Sanity's own CDN. Applied only to /studio/*.
+ * Access to /studio itself is gated by Sanity's own auth (Google login),
+ * so relaxing the browser CSP here is acceptable.
+ */
+const studioCspDirectives = {
+  "default-src": ["'self'", "https://*.sanity.io", "https://*.sanity.studio"],
+  "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'", "blob:", "https://*.sanity.io"],
+  "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+  "img-src": ["'self'", "data:", "blob:", "https://cdn.sanity.io", "https://*.sanity.io"],
+  "font-src": ["'self'", "data:", "https://fonts.gstatic.com"],
+  "connect-src": [
+    "'self'",
+    "https://*.api.sanity.io",
+    "https://*.apicdn.sanity.io",
+    "https://*.sanity.io",
+    "wss://*.api.sanity.io",
+    ...(isDev ? ["ws://localhost:5173", "http://localhost:5173"] : []),
+  ],
+  "worker-src": ["'self'", "blob:"],
+  "frame-src": ["'self'", "https://*.sanity.io", "https://*.sanity.studio"],
+  "frame-ancestors": ["'self'"],
+  "base-uri": ["'self'"],
+  "form-action": ["'self'", "https://*.sanity.io"],
+};
 
-const securityHeaders = [
-  { key: "Content-Security-Policy", value: csp },
+function cspHeader(directives) {
+  return Object.entries(directives)
+    .map(([k, v]) => (v.length ? `${k} ${v.join(" ")}` : k))
+    .join("; ");
+}
+
+const publicHeaders = [
+  { key: "Content-Security-Policy", value: cspHeader(publicCspDirectives) },
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
@@ -55,17 +88,25 @@ const securityHeaders = [
   },
 ];
 
+const studioHeaders = [
+  { key: "Content-Security-Policy", value: cspHeader(studioCspDirectives) },
+  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  // Studio needs to be embeddable in its own frames — SAMEORIGIN instead of DENY
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+];
+
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,   // stop leaking "X-Powered-By: Next.js"
-  // Pin the workspace root — Next was picking up ~/package-lock.json by mistake.
   outputFileTracingRoot: projectRoot,
   async headers() {
+    // First match wins — /studio* rules are applied to Studio, everything else stays strict.
     return [
-      {
-        source: "/:path*",
-        headers: securityHeaders,
-      },
+      { source: "/studio/:path*", headers: studioHeaders },
+      { source: "/studio", headers: studioHeaders },
+      { source: "/:path*", headers: publicHeaders },
     ];
   },
 };

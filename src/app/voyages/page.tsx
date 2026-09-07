@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { OG_DEFAULT_IMAGE, ogImages } from "@/lib/seo";
+import { getAllTrips } from "@/lib/sanity.queries";
 import VoyagesClient from "./VoyagesClient";
 
 export const metadata: Metadata = {
@@ -16,11 +17,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
-  // Voyages uses useSearchParams → wrap in Suspense (Next 15 requirement)
+export default async function Page() {
+  const trips = await getAllTrips();
   return (
     <Suspense fallback={null}>
-      <VoyagesClient />
+      <VoyagesClient trips={trips} />
     </Suspense>
   );
 }

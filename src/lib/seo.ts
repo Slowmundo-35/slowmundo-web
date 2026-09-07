@@ -24,7 +24,7 @@ export const travelAgencySchema = {
   logo: `${SITE_URL}/img/slowmundo/alexis-portrait.webp`,
   image: `${SITE_URL}/img/slowmundo/gotthard-tessin/locarno-lac-majeur.webp`,
   telephone: "+33-6-76-37-18-39",
-  email: "alexisjupin@gmail.com",
+  email: "contact@slowmundo.fr",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Rennes",
