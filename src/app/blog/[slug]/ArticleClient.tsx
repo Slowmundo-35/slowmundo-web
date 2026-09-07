@@ -2,51 +2,39 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'motion/react';
-import { 
-  Clock, 
-  Calendar, 
-  ArrowRight, 
-  ArrowLeft, 
-  Share2, 
-  Sparkles, 
-  MapPin, 
-  Train, 
-  CheckCircle2, 
-  BookOpen, 
+import {
+  Clock,
+  Calendar,
+  ArrowRight,
+  ArrowLeft,
+  Share2,
+  Sparkles,
+  MapPin,
+  Train,
+  CheckCircle2,
+  BookOpen,
   Mail,
   User,
   Heart,
-  ChevronRight
+  ChevronRight,
 } from 'lucide-react';
-import { articlesData, Article as ArticleType, getStoredArticles } from '@/data/articlesData';
-import { CarbonSimulatorWidget, BrochureDownloadWidget } from '@/components/ArticleLeadMagnet';
+import type { SanityArticle } from '@/lib/sanity.queries';
+import PortableTextRenderer from '@/components/PortableTextRenderer';
 
 const MotionLink = motion.create(Link);
 
-export default function Article() {
-  const { slug } = useParams<{ slug: string }>();
-  const router = useRouter();
-  const [article, setArticle] = useState<ArticleType | null>(null);
-  const [relatedArticles, setRelatedArticles] = useState<ArticleType[]>([]);
+interface ArticleClientProps {
+  article: SanityArticle | null;
+  relatedArticles?: SanityArticle[];
+}
+
+export default function Article({ article, relatedArticles = [] }: ArticleClientProps) {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const allArts = getStoredArticles();
-    const found = allArts.find(a => a.slug === slug);
-    if (!found) {
-      router.push('/blog');
-      return;
-    }
-    setArticle(found);
-    
-    // Find related articles
-    const related = allArts.filter(a => a.id !== found.id).slice(0, 3);
-    setRelatedArticles(related);
-    
     window.scrollTo(0, 0);
-  }, [slug, router]);
+  }, [article?.id]);
 
   const handleShare = () => {
     if (navigator.clipboard) {
@@ -56,7 +44,27 @@ export default function Article() {
     }
   };
 
-  if (!article) return null;
+  if (!article) {
+    return (
+      <main className="w-full pt-36 md:pt-44 pb-20 min-h-screen bg-[#FBFBFB] font-sans">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h1 className="text-2xl md:text-3xl font-bold text-text-main mb-4">
+            Article introuvable
+          </h1>
+          <p className="text-text-muted mb-8">
+            Cet article n&apos;existe pas ou a été retiré.
+          </p>
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-primary/90 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Retour au blog
+          </Link>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="w-full pt-36 md:pt-44 pb-20 min-h-screen bg-[#FBFBFB] font-sans">
@@ -171,7 +179,7 @@ export default function Article() {
               className="prose prose-lg max-w-none text-text-main leading-relaxed"
             >
               <div className="text-base md:text-lg text-text-main/90 space-y-6">
-                {article.content()}
+                <PortableTextRenderer value={article.body} />
               </div>
             </motion.div>
 
@@ -309,6 +317,7 @@ export default function Article() {
       </div>
 
       {/* Suggested Articles Section */}
+      {relatedArticles.length > 0 && (
       <section className="max-w-7xl mx-auto px-6 mt-20 border-t border-gray-200/80 pt-16">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-xs font-extrabold uppercase tracking-wider text-primary">Continuer la lecture</span>
@@ -361,6 +370,7 @@ export default function Article() {
           ))}
         </div>
       </section>
+      )}
     </main>
   );
 }

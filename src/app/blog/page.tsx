@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ogImages } from "@/lib/seo";
+import { getAllArticles } from "@/lib/sanity.queries";
 import BlogClient from "./BlogClient";
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
-  return <BlogClient />;
+export default async function Page() {
+  const articles = await getAllArticles();
+  return <BlogClient articles={articles} />;
 }

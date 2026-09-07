@@ -4,7 +4,11 @@ import { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
 import { Search, Clock, ArrowRight, Sparkles, Calendar, BookOpen, X, Train, Leaf, Compass, Coffee } from 'lucide-react';
-import { articlesData, Article, getStoredArticles } from '@/data/articlesData';
+import type { SanityArticle } from '@/lib/sanity.queries';
+
+interface BlogClientProps {
+  articles: SanityArticle[];
+}
 
 const MotionLink = motion.create(Link);
 
@@ -22,7 +26,7 @@ const categoryIcons: Record<string, React.ElementType> = {
   "Esprit Slow Travel": Coffee,
 };
 
-export default function Blog() {
+export default function Blog({ articles }: BlogClientProps) {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -30,33 +34,31 @@ export default function Blog() {
     window.scrollTo(0, 0);
   }, []);
 
-  const allArticles = useMemo(() => getStoredArticles(), []);
+  const allArticles = articles;
 
-  // Compute filtered articles based on search and category
   const filteredArticles = useMemo(() => {
     return allArticles.filter((article) => {
       const matchesCategory = !activeCategory || article.category === activeCategory;
       const query = searchQuery.trim().toLowerCase();
-      const matchesSearch = !query || 
+      const matchesSearch = !query ||
         article.title.toLowerCase().includes(query) ||
         article.excerpt.toLowerCase().includes(query) ||
         article.category.toLowerCase().includes(query);
-      
+
       return matchesCategory && matchesSearch;
     });
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, searchQuery, allArticles]);
 
-  // Count per category
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
-    categories.forEach(cat => {
-      counts[cat] = articlesData.filter(a => a.category === cat).length;
+    categories.forEach((cat) => {
+      counts[cat] = allArticles.filter((a) => a.category === cat).length;
     });
     return counts;
-  }, []);
+  }, [allArticles]);
 
-  const featuredArticle = articlesData[0];
-  const showFeatured = !activeCategory && !searchQuery;
+  const featuredArticle = allArticles[0];
+  const showFeatured = !activeCategory && !searchQuery && !!featuredArticle;
 
   return (
     <main className="w-full pt-32 md:pt-40 pb-20 min-h-screen bg-[#FBFBFB] font-sans">
@@ -131,7 +133,7 @@ export default function Blog() {
               <span className={`px-2 py-0.5 rounded-full text-[11px] ${
                 activeCategory === null ? 'bg-white/20 text-white' : 'bg-gray-100 text-text-muted'
               }`}>
-                {articlesData.length}
+                {allArticles.length}
               </span>
             </button>
 

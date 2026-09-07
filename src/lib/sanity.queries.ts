@@ -1,6 +1,7 @@
 import "server-only";
 import { client } from "@/sanity/lib/client";
 import type { ItineraryDay, Trip } from "@/data/trips";
+import type { PortableTextBlock } from "@portabletext/types";
 
 /**
  * Trip fetchers. All queries dereference Sanity image / file assets to a plain
@@ -160,6 +161,73 @@ export async function getAllTripSlugs(): Promise<
     slug: t.slug,
   }));
 }
+
+/* ─────────────────────────  ARTICLES  ───────────────────────── */
+
+export type SanityArticle = {
+  id: string;
+  title: string;
+  slug: string;
+  category: string;
+  excerpt: string;
+  image: string;
+  imageAlt?: string;
+  readTime?: string;
+  date?: string;             // ISO
+  body?: PortableTextBlock[]; // portable text
+};
+
+const ARTICLE_LIST_FIELDS = `
+  "id": _id,
+  title,
+  "slug": slug.current,
+  category,
+  excerpt,
+  "image": image.asset->url,
+  "imageAlt": image.alt,
+  readTime,
+  date
+`;
+
+const ARTICLE_DETAIL_FIELDS = `
+  ${ARTICLE_LIST_FIELDS},
+  body
+`;
+
+/** All articles sorted newest first. */
+export async function getAllArticles(): Promise<SanityArticle[]> {
+  const query = `*[_type == "article"] | order(date desc) { ${ARTICLE_LIST_FIELDS} }`;
+  const raw = await client.fetch<SanityArticle[]>(
+    query,
+    {},
+    { next: { revalidate: 60, tags: ["articles"] } }
+  );
+  return raw ?? [];
+}
+
+/** One article by slug. Returns null if unknown. */
+export async function getArticleBySlug(slug: string): Promise<SanityArticle | null> {
+  const query = `*[_type == "article" && slug.current == $slug][0] { ${ARTICLE_DETAIL_FIELDS} }`;
+  const raw = await client.fetch<SanityArticle | null>(
+    query,
+    { slug },
+    { next: { revalidate: 60, tags: ["articles", `article:${slug}`] } }
+  );
+  return raw ?? null;
+}
+
+/** Slugs used by sitemap.ts and static param generation. */
+export async function getAllArticleSlugs(): Promise<string[]> {
+  const query = `*[_type == "article" && defined(slug.current)] { "slug": slug.current }`;
+  const raw = await client.fetch<Array<{ slug: string }>>(
+    query,
+    {},
+    { next: { revalidate: 60, tags: ["articles"] } }
+  );
+  return (raw ?? []).map((r) => r.slug);
+}
+
+/* ─────────────────────────  UTILS  ───────────────────────── */
 
 // Local slugify (avoids the shared @/utils/slugify import to keep this file
 // self-contained and importable from `sitemap.ts` at build time).

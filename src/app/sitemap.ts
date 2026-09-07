@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllTripSlugs } from "@/lib/sanity.queries";
-import { articlesData } from "@/data/articlesData";
+import { getAllArticles, getAllTripSlugs } from "@/lib/sanity.queries";
 
 const BASE_URL = "https://www.slowmundo.fr";
 
@@ -35,8 +34,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
-  // Articles remain in-code for now (blog will move to Sanity in a next pass).
-  const articleRoutes: MetadataRoute.Sitemap = articlesData.map((article) => {
+  // Blog articles also come from Sanity
+  const articles = await getAllArticles();
+  const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => {
     const parsed = article.date ? new Date(article.date) : null;
     return {
       url: `${BASE_URL}/blog/${article.slug}`,
