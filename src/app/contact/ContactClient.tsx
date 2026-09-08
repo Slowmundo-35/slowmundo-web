@@ -42,13 +42,48 @@ export default function Contact() {
     continent: 'Europe',
     destinations: [] as string[],
     projet: '',
-    consentement: false
+    consentement: false,
+    // Honeypot — must stay empty.
+    website: '',
   });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Formulaire soumis :', formData);
-    alert('Merci ! Votre demande a bien été envoyée. Nous vous recontacterons très vite.');
+    if (submitting) return;
+    setError(null);
+    setSubmitting(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'contact',
+          firstName: formData.prenom,
+          lastName: formData.nom,
+          email: formData.email,
+          phone: formData.telephone,
+          continent: formData.continent,
+          destinations: formData.destinations,
+          message: formData.projet,
+          consent: formData.consentement,
+          website: formData.website,
+        }),
+      });
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Contact submit failed:', err);
+      setError(
+        "Une erreur est survenue lors de l'envoi. Merci de réessayer, ou de nous écrire directement à contact@slowmundo.fr"
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -138,7 +173,20 @@ export default function Contact() {
 
           {/* Form Side */}
           <div className="w-full lg:w-7/12 flex flex-col justify-center">
-            <form onSubmit={handleSubmit} className="space-y-4 w-full">
+            <form onSubmit={handleSubmit} className="space-y-4 w-full" noValidate>
+              {/* Honeypot: hidden from real users, catches naive bots. */}
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: 'auto', width: 1, height: 1, overflow: 'hidden' }}>
+                <label htmlFor="website">Ne pas remplir</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formData.website}
+                  onChange={handleChange}
+                />
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Nom */}
                 <div className="space-y-1.5">
@@ -296,13 +344,28 @@ export default function Contact() {
                 </label>
               </div>
 
+              {/* Error message */}
+              {error && (
+                <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+                  {error}
+                </div>
+              )}
+
+              {/* Success message (inline — the form stays visible below) */}
+              {submitted && !error && (
+                <div className="text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">
+                  ✅ Merci ! Votre demande a bien été envoyée. Nous vous recontacterons sous 24 à 48 heures.
+                </div>
+              )}
+
               {/* Submit Button */}
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto bg-primary text-white px-8 py-3.5 rounded-xl font-bold text-base hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg"
+                  disabled={submitting || submitted}
+                  className="w-full sm:w-auto bg-primary text-white px-8 py-3.5 rounded-xl font-bold text-base hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Envoyer la demande
+                  {submitting ? 'Envoi en cours…' : submitted ? 'Demande envoyée' : 'Envoyer la demande'}
                 </button>
               </div>
             </form>

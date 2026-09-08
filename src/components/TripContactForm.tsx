@@ -23,6 +23,8 @@ function getCountryGrammar(country: string): string {
 
 export const TripContactForm: React.FC<TripContactFormProps> = ({ country, tripTitle }) => {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     nom: '',
     prenom: '',
@@ -31,6 +33,8 @@ export const TripContactForm: React.FC<TripContactFormProps> = ({ country, tripT
     nombrePersonnes: '2',
     residence: 'Bretagne',
     message: '',
+    // Honeypot — must stay empty. Hidden from real users via CSS.
+    website: '',
   });
 
   const handleChange = (
@@ -40,10 +44,41 @@ export const TripContactForm: React.FC<TripContactFormProps> = ({ country, tripT
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Demande de voyage envoyée:', { country, tripTitle, ...formData });
-    setSubmitted(true);
+    if (submitting) return;
+    setError(null);
+    setSubmitting(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'trip',
+          firstName: formData.prenom,
+          lastName: formData.nom,
+          email: formData.email,
+          phone: formData.telephone,
+          tripCountry: country,
+          tripTitle,
+          groupSize: formData.nombrePersonnes,
+          residence: formData.residence,
+          message: formData.message,
+          website: formData.website,
+        }),
+      });
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Contact submit failed:', err);
+      setError(
+        "Une erreur est survenue lors de l'envoi. Merci de réessayer, ou de nous écrire directement à contact@slowmundo.fr"
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const prep = getCountryGrammar(country);
@@ -81,7 +116,20 @@ export const TripContactForm: React.FC<TripContactFormProps> = ({ country, tripT
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl mx-auto">
+      <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl mx-auto" noValidate>
+        {/* Honeypot: hidden from real users, catches naive bots. */}
+        <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: 'auto', width: 1, height: 1, overflow: 'hidden' }}>
+          <label htmlFor="website">Ne pas remplir</label>
+          <input
+            type="text"
+            id="website"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={formData.website}
+            onChange={handleChange}
+          />
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {/* Nom */}
           <div className="space-y-1.5">
@@ -232,14 +280,22 @@ export const TripContactForm: React.FC<TripContactFormProps> = ({ country, tripT
           />
         </div>
 
+        {/* Error message */}
+        {error && (
+          <div className="text-center text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+            {error}
+          </div>
+        )}
+
         {/* Submit button */}
         <div className="text-center pt-2">
           <button
             type="submit"
-            className="inline-flex items-center justify-center gap-2.5 bg-primary text-white px-8 py-3.5 rounded-xl font-bold text-sm md:text-base hover:bg-primary-hover transition-all shadow-lg hover:shadow-xl w-full sm:w-auto"
+            disabled={submitting}
+            className="inline-flex items-center justify-center gap-2.5 bg-primary text-white px-8 py-3.5 rounded-xl font-bold text-sm md:text-base hover:bg-primary-hover transition-all shadow-lg hover:shadow-xl w-full sm:w-auto disabled:opacity-60 disabled:cursor-not-allowed"
           >
             <Send className="w-4 h-4" />
-            <span>Envoyer ma demande de voyage</span>
+            <span>{submitting ? 'Envoi en cours…' : 'Envoyer ma demande de voyage'}</span>
           </button>
         </div>
       </form>
