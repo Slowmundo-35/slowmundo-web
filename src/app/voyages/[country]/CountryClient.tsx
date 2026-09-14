@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Clock, Leaf, MapPin } from "lucide-react";
 import type { Trip } from "@/data/trips";
-import { getTripSlug } from "@/data/trips";
+import { getTripSlug, getCountrySlug, getTripCountries } from "@/data/trips";
 
 interface CountryClientProps {
   countrySlug: string;
@@ -61,7 +61,7 @@ export default function CountryClient({ countrySlug, countryName, trips }: Count
                 transition={{ duration: 0.4, delay: index * 0.06 }}
                 className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all border border-gray-100"
               >
-                <Link href={`/voyages/${countrySlug}/${getTripSlug(trip)}`} className="flex flex-col h-full">
+                <Link href={`/voyages/${getCountrySlug(trip)}/${getTripSlug(trip)}`} className="flex flex-col h-full">
                   <div className="relative h-56 overflow-hidden">
                     <img
                       src={trip.image}
@@ -75,7 +75,7 @@ export default function CountryClient({ countrySlug, countryName, trips }: Count
                   <div className="flex flex-col flex-grow p-6">
                     <div className="flex items-center gap-2 text-xs text-text-muted mb-3">
                       <MapPin className="w-3.5 h-3.5" />
-                      <span>{trip.country}</span>
+                      <span>{getTripCountries(trip).join(', ')}</span>
                       <span>•</span>
                       <span>{trip.type}</span>
                     </div>

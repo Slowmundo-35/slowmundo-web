@@ -13,6 +13,7 @@ const EUROPE_COUNTRIES = [
   'Macédoine du Nord',
   'Belgique',
   'Pays-Bas',
+  'Luxembourg',
   'Allemagne',
   'Suisse',
   'Autriche',
@@ -278,6 +279,7 @@ export default function Contact() {
                     Destination(s) principale(s) <span className="text-red-500">*</span>
                   </label>
                   <MultiSelect
+                    id="destination"
                     values={formData.destinations}
                     onChange={(vals) =>
                       setFormData((prev) => ({ ...prev, destinations: vals }))

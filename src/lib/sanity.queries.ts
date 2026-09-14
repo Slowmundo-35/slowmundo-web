@@ -1,6 +1,7 @@
 import "server-only";
 import { client } from "@/sanity/lib/client";
 import type { ItineraryDay, Trip } from "@/data/trips";
+import { getTripCountries } from "@/data/trips";
 import type { PortableTextBlock } from "@portabletext/types";
 
 /**
@@ -15,6 +16,7 @@ const TRIP_LIST_FIELDS = `
   title,
   "slug": slug.current,
   country,
+  countries,
   continent,
   type,
   transport,
@@ -55,6 +57,7 @@ type SanityTripRaw = {
   title?: string;
   slug?: string;
   country?: string;
+  countries?: string[];
   continent?: string;
   type?: string;
   transport?: string;
@@ -82,6 +85,7 @@ function normalize(raw: SanityTripRaw): Trip {
     image: raw.image ?? "",
     continent: raw.continent ?? "Europe",
     country: raw.country ?? "",
+    countries: raw.countries ?? [],
     type: raw.type ?? "",
     transport: raw.transport ?? "",
     duration: raw.duration ?? "",
@@ -125,7 +129,7 @@ export async function getAllTrips(): Promise<Trip[]> {
 export async function getTripsByCountrySlug(countrySlug: string): Promise<Trip[]> {
   const all = await getAllTrips();
   const target = countrySlug.toLowerCase();
-  return all.filter((t) => slugify(t.country) === target);
+  return all.filter((t) => getTripCountries(t).some(c => slugify(c) === target));
 }
 
 /** Full trip detail (with itinerary + gallery + brochure). Returns null if unknown. */
@@ -148,16 +152,17 @@ export async function getTripByCountryAndSlug(
 
 /** Slug tuples used by sitemap.ts to enumerate every /voyages/[country]/[slug]. */
 export async function getAllTripSlugs(): Promise<
-  Array<{ country: string; slug: string }>
+  Array<{ country: string; countries: string[]; slug: string }>
 > {
-  const query = `*[_type == "trip" && defined(slug.current) && defined(country)] { country, "slug": slug.current }`;
-  const raw = await client.fetch<Array<{ country: string; slug: string }>>(
+  const query = `*[_type == "trip" && defined(slug.current) && defined(country)] { country, countries, "slug": slug.current }`;
+  const raw = await client.fetch<Array<{ country: string; countries?: string[]; slug: string }>>(
     query,
     {},
     { next: { revalidate: 60, tags: ["trips"] } }
   );
   return (raw ?? []).map((t) => ({
     country: slugify(t.country),
+    countries: getTripCountries(t).map(slugify),
     slug: t.slug,
   }));
 }

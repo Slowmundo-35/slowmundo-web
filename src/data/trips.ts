@@ -12,6 +12,7 @@ const StoredTripSchema = z.object({
   image: z.string().min(1).max(600),
   continent: z.string().min(1).max(60),
   country: z.string().min(1).max(60),
+  countries: z.array(z.string().trim().min(1).max(60)).max(50).optional(),
   type: z.string().min(1).max(100),
   transport: z.string().min(1).max(100),
   duration: z.string().min(1).max(60),
@@ -53,6 +54,8 @@ export interface Trip {
   image: string;
   continent: string;
   country: string;
+  /** Additional countries visited; country remains the primary URL country. */
+  countries?: string[];
   type: string;
   transport: string;
   duration: string;
@@ -76,6 +79,15 @@ export interface Trip {
  */
 export const TRIPS: Trip[] = [];
 
+export function getTripCountries(trip: Pick<Trip, 'country' | 'countries'>): string[] {
+  return [...new Set([trip.country, ...(trip.countries ?? [])].map(c => c.trim()).filter(Boolean))];
+}
+
+/** Selecting several countries includes trips visiting any selected country. */
+export function matchesTripCountries(trip: Pick<Trip, 'country' | 'countries'>, countries: string[]): boolean {
+  return countries.length === 0 || getTripCountries(trip).some(c => countries.some(selected => slugify(selected) === slugify(c)));
+}
+
 /** Country slug (first URL segment). */
 export function getCountrySlug(trip: Pick<Trip, 'country'>): string {
   return slugify(trip.country);
@@ -97,7 +109,7 @@ export function getTripsByCountrySlug(
   trips: Trip[] = TRIPS
 ): Trip[] {
   const target = countrySlug.toLowerCase();
-  return trips.filter((t) => slugify(t.country) === target);
+  return trips.filter((t) => getTripCountries(t).some(c => slugify(c) === target));
 }
 
 /** Exact trip by country + trip slug. Undefined if unknown. */

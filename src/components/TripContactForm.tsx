@@ -6,6 +6,7 @@ import Select from './ui/Select';
 
 interface TripContactFormProps {
   country: string;
+  countries?: string[];
   tripTitle?: string;
 }
 
@@ -21,7 +22,7 @@ function getCountryGrammar(country: string): string {
   return `en ${c}`;
 }
 
-export const TripContactForm: React.FC<TripContactFormProps> = ({ country, tripTitle }) => {
+export const TripContactForm: React.FC<TripContactFormProps> = ({ country, countries = [], tripTitle }) => {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -60,6 +61,7 @@ export const TripContactForm: React.FC<TripContactFormProps> = ({ country, tripT
           email: formData.email,
           phone: formData.telephone,
           tripCountry: country,
+          tripCountries: countries,
           tripTitle,
           groupSize: formData.nombrePersonnes,
           residence: formData.residence,

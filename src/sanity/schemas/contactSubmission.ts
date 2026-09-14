@@ -125,7 +125,6 @@ export const contactSubmission = defineType({
       type: "array",
       of: [{ type: "string" }],
       readOnly: true,
-      hidden: ({ document }) => document?.source !== "contact",
     }),
 
     // ---- Free text ----

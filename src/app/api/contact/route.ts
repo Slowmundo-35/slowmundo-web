@@ -29,6 +29,7 @@ const BaseSchema = z.object({
 const TripSchema = BaseSchema.extend({
   source: z.literal("trip"),
   tripCountry: z.string().trim().min(1).max(80),
+  tripCountries: z.array(z.string().trim().min(1).max(80)).max(50).default([]),
   tripTitle: z.string().trim().max(200).optional(),
   groupSize: z.string().trim().max(10),
   residence: z.string().trim().max(40),
@@ -38,7 +39,7 @@ const TripSchema = BaseSchema.extend({
 const ContactSchema = BaseSchema.extend({
   source: z.literal("contact"),
   continent: z.string().trim().max(40),
-  destinations: z.array(z.string().trim().max(80)).max(20).default([]),
+  destinations: z.array(z.string().trim().min(1).max(80)).max(50).default([]),
   consent: z.boolean().refine((v) => v === true, {
     message: "Consentement RGPD requis",
   }),
@@ -102,7 +103,7 @@ function buildEmailBody(payload: Payload): { subject: string; html: string; text
   if (payload.source === "trip") {
     subject = `[Slowmundo] Nouvelle demande — ${payload.tripTitle || payload.tripCountry} — ${fullName}`;
     lines.push(["Voyage", payload.tripTitle || "(non spécifié)"]);
-    lines.push(["Pays", payload.tripCountry]);
+    lines.push(["Pays", [...new Set([payload.tripCountry, ...payload.tripCountries])].join(", ")]);
     lines.push(["Nombre de personnes", payload.groupSize]);
     lines.push(["Résidence", payload.residence]);
   } else {
@@ -199,6 +200,7 @@ export async function POST(req: NextRequest) {
     };
     if (payload.source === "trip") {
       doc.tripCountry = payload.tripCountry;
+      doc.destinations = [...new Set([payload.tripCountry, ...payload.tripCountries])];
       doc.tripTitle = payload.tripTitle;
       doc.groupSize = payload.groupSize;
       doc.residence = payload.residence;

@@ -14,9 +14,12 @@ export interface MultiSelectProps {
   onChange: (vals: string[]) => void;
   options: MultiSelectOption[];
   placeholder?: string;
+  /** Extra class on the placeholder span when nothing is selected. Defaults to a muted placeholder look; pass an empty string to inherit the button's own styling (used by the /voyages filter bar so "Destinations" matches the neighbouring filters). */
+  placeholderClassName?: string;
   className?: string;
   buttonClassName?: string;
   disabled?: boolean;
+  id?: string;
 }
 
 export default function MultiSelect({
@@ -24,9 +27,11 @@ export default function MultiSelect({
   onChange,
   options,
   placeholder = 'Sélectionner des destinations',
+  placeholderClassName = 'text-gray-400 font-normal',
   className = '',
   buttonClassName,
   disabled = false,
+  id,
 }: MultiSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -64,7 +69,7 @@ export default function MultiSelect({
 
   const getButtonText = () => {
     if (values.length === 0) {
-      return <span className="text-gray-400 font-normal">{placeholder}</span>;
+      return <span className={placeholderClassName}>{placeholder}</span>;
     }
     if (values.length === 1) {
       const opt = options.find((o) => o.value === values[0]);
@@ -87,6 +92,8 @@ export default function MultiSelect({
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button
+        id={id}
+        aria-expanded={isOpen}
         type="button"
         disabled={disabled}
         onClick={() => setIsOpen(!isOpen)}
@@ -174,6 +181,7 @@ export default function MultiSelect({
                     <li key={option.value}>
                       <button
                         type="button"
+                        aria-pressed={isSelected}
                         onClick={() => toggleOption(option.value)}
                         className={`w-full text-left px-4 py-2 text-sm transition-colors flex items-center justify-between ${
                           isSelected

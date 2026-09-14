@@ -14,11 +14,11 @@ type Params = { country: string };
  * naïve capitalisation.
  */
 function prettify(slug: string, tripCountry?: string): string {
-  if (tripCountry) return tripCountry;
   const dictMatch = Object.values(countryTranslations).find(
     (fr) => slugify(fr) === slug.toLowerCase()
   );
   if (dictMatch) return dictMatch;
+  if (tripCountry && slugify(tripCountry) === slug.toLowerCase()) return tripCountry;
   return slug
     .split("-")
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))

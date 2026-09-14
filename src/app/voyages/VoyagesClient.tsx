@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import Select from '@/components/ui/Select';
+import MultiSelect from '@/components/ui/MultiSelect';
+import { getTripCountries, matchesTripCountries } from '@/data/trips';
 import type { Trip } from '@/data/trips';
 import { slugify } from '@/utils/slugify';
 
@@ -44,7 +46,7 @@ export default function Voyages({ trips }: VoyagesClientProps) {
 
   const [filterRegion, setFilterRegion] = useState(() => {
     if (urlCountry) {
-      const trip = trips.find(t => t.country === urlCountry);
+      const trip = trips.find(t => matchesTripCountries(t, [urlCountry]));
       if (trip) return trip.continent;
     }
     if (urlType) {
@@ -53,15 +55,15 @@ export default function Voyages({ trips }: VoyagesClientProps) {
     }
     return 'Tout';
   });
-  const [filterCountry, setFilterCountry] = useState(urlCountry || 'Toutes');
+  const [filterCountries, setFilterCountries] = useState<string[]>(urlCountry ? [urlCountry] : []);
   const [filterType, setFilterType] = useState(urlType || 'Tous');
   const [filterDuration, setFilterDuration] = useState('Toutes');
 
   // Sync filter state when the URL changes on the same page
   useEffect(() => {
+    setFilterCountries(urlCountry ? [urlCountry] : []);
     if (urlCountry) {
-      setFilterCountry(urlCountry);
-      const trip = trips.find(t => t.country === urlCountry);
+      const trip = trips.find(t => matchesTripCountries(t, [urlCountry]));
       if (trip) setFilterRegion(trip.continent);
     }
     if (urlType) {
@@ -74,26 +76,30 @@ export default function Voyages({ trips }: VoyagesClientProps) {
   const allTrips = trips;
   const filteredTrips = allTrips.filter(trip => {
     if (filterRegion !== 'Tout' && trip.continent !== filterRegion) return false;
-    if (filterCountry !== 'Toutes' && trip.country !== filterCountry) return false;
+    if (!matchesTripCountries(trip, filterCountries)) return false;
     if (filterType !== 'Tous' && trip.type !== filterType) return false;
     if (filterDuration !== 'Toutes' && !matchesDurationFilter(trip.duration, filterDuration)) return false;
     return true;
   });
 
-  const allowedEurope = ["France", "Italie", "Royaume-Uni", "Macédoine du Nord", "Belgique", "Pays-Bas", "Allemagne", "Suisse", "Autriche", "Liechtenstein", "Slovénie", "Slovaquie", "Pologne", "Tchéquie", "Albanie", "Grèce", "Espagne", "Portugal", "Islande", "Irlande"];
+  const allowedEurope = ["France", "Italie", "Royaume-Uni", "Macédoine du Nord", "Belgique", "Pays-Bas", "Luxembourg", "Allemagne", "Suisse", "Autriche", "Liechtenstein", "Slovénie", "Slovaquie", "Pologne", "Tchéquie", "Albanie", "Grèce", "Espagne", "Portugal", "Islande", "Irlande"];
   const allowedAsia = ["Inde", "Japon", "Vietnam", "Malaisie"];
 
-  const uniqueCountries = filterRegion === 'Europe' 
+  const regionCountries = filterRegion === 'Europe'
     ? [...allowedEurope].sort()
     : filterRegion === 'Asie'
       ? [...allowedAsia].sort()
       : [...allowedEurope, ...allowedAsia].sort();
+  const uniqueCountries = [...new Set([
+    ...regionCountries,
+    ...trips.filter(t => filterRegion === 'Tout' || t.continent === filterRegion).flatMap(getTripCountries),
+  ])].sort((a, b) => a.localeCompare(b, 'fr'));
 
   // Reset country when region changes
   const handleRegionChange = (region: string) => {
     if (region !== filterRegion) {
       setFilterRegion(region);
-      setFilterCountry('Toutes');
+      setFilterCountries([]);
     }
   };
 
@@ -128,7 +134,7 @@ export default function Voyages({ trips }: VoyagesClientProps) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="flex flex-col md:flex-row items-center justify-center gap-4 mb-16"
+          className="relative z-30 flex flex-col md:flex-row items-center justify-center gap-4 mb-16"
         >
           <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto max-w-4xl px-6 md:px-0">
             <Select 
@@ -144,15 +150,13 @@ export default function Voyages({ trips }: VoyagesClientProps) {
               buttonClassName="w-full bg-white border border-gray-200 text-text-main px-4 md:px-6 py-3 md:py-2.5 rounded-xl md:rounded-full font-semibold hover:border-primary/50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20 shadow-sm flex items-center justify-between text-sm"
             />
 
-            <Select 
-              value={filterCountry}
-              onChange={setFilterCountry}
-              options={[
-                { value: 'Toutes', label: 'Toutes' },
-                ...uniqueCountries.map(c => ({ value: c, label: c }))
-              ]}
-              displayValue={filterCountry === 'Toutes' ? 'Destination' : filterCountry}
-              className="w-full md:min-w-[200px]"
+            <MultiSelect
+              values={filterCountries}
+              onChange={setFilterCountries}
+              options={uniqueCountries.map(c => ({ value: c, label: c }))}
+              placeholder="Destinations"
+              placeholderClassName=""
+              className="w-full md:w-[260px] md:shrink-0"
               buttonClassName="w-full bg-white border border-gray-200 text-text-main px-4 md:px-6 py-3 md:py-2.5 rounded-xl md:rounded-full font-semibold hover:border-primary/50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20 shadow-sm flex items-center justify-between text-sm"
             />
 
@@ -161,12 +165,14 @@ export default function Voyages({ trips }: VoyagesClientProps) {
               onChange={setFilterType}
               options={[
                 { value: 'Tous', label: 'Tous' },
-                { value: 'Culturel', label: 'Culturel' },
-                { value: 'Familial', label: 'Familial' },
-                { value: 'Romantique', label: 'Romantique' },
-                { value: 'Sportif', label: 'Sportif' },
-                { value: 'Nature & Aventure', label: 'Nature & Aventure' },
-                { value: 'Solo & Amis', label: 'Solo & Amis' }
+                { value: 'Culture et patrimoine', label: 'Culture et patrimoine' },
+                { value: 'Gastronomie', label: 'Gastronomie' },
+                { value: 'En train', label: 'En train' },
+                { value: 'Bas carbone', label: 'Bas carbone' },
+                { value: 'Nature et grands espaces', label: 'Nature et grands espaces' },
+                { value: 'Hors des sentiers battus', label: 'Hors des sentiers battus' },
+                { value: 'Itinéraires transfrontaliers', label: 'Itinéraires transfrontaliers' },
+                { value: 'Romantique', label: 'Romantique' }
               ]}
               displayValue={filterType === 'Tous' ? 'Type' : filterType}
               className="w-full md:min-w-[160px]"
@@ -235,7 +241,7 @@ export default function Voyages({ trips }: VoyagesClientProps) {
                     <div className="flex flex-wrap items-center gap-2 text-text-muted text-sm font-medium mt-auto">
                       <div className="flex items-center gap-1.5 text-text-main font-semibold">
                         <MapPin className="w-4 h-4 text-primary shrink-0" />
-                        {card.country}
+                        {getTripCountries(card).join(', ')}
                       </div>
                       <span className="text-gray-300">•</span>
                       <div className="text-primary font-bold text-xs bg-primary/10 px-2.5 py-1 rounded-full">
@@ -264,9 +270,9 @@ export default function Voyages({ trips }: VoyagesClientProps) {
                     Créer mon voyage sur mesure
                   </Link>
                 </>
-              ) : filterCountry !== 'Toutes' ? (
+              ) : filterCountries.length > 0 ? (
                 <>
-                  <p className="mb-4">Aucun itinéraire prédéfini n&apos;est encore disponible pour : {filterCountry}.</p>
+                  <p className="mb-4">Aucun itinéraire prédéfini n&apos;est encore disponible pour : {filterCountries.join(', ')}.</p>
                   <Link href="/contact" className="inline-block bg-primary text-white px-6 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors">
                     Créer un voyage sur mesure
                   </Link>

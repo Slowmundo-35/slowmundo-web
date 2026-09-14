@@ -539,14 +539,16 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full mb-12">
             {[
-              { title: 'Culturel', image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=800&auto=format&fit=crop', badge: 'Musées & Histoire' },
-              { title: 'Familial', image: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?q=80&w=800&auto=format&fit=crop', badge: 'Tous âges' },
-              { title: 'Romantique', image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=800&auto=format&fit=crop', badge: 'Évasion à deux' },
-              { title: 'Sportif', image: 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?q=80&w=800&auto=format&fit=crop', badge: 'Randonnée & Vélo' },
-              { title: 'Nature & Aventure', image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop', badge: 'Grands Espaces' },
-              { title: 'Solo & Amis', image: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?q=80&w=800&auto=format&fit=crop', badge: 'Liberté totale' },
+              { title: 'Culture et patrimoine', image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=800&auto=format&fit=crop', badge: 'Musées & Histoire' },
+              { title: 'Gastronomie', image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800&auto=format&fit=crop', badge: 'Saveurs locales' },
+              { title: 'En train', image: '/img/slowmundo/train-europe.webp', badge: 'Transport doux' },
+              { title: 'Bas carbone', image: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=800&auto=format&fit=crop', badge: 'Engagement CO₂' },
+              { title: 'Nature et grands espaces', image: '/img/slowmundo/paysage-autriche-montagne.webp', badge: 'Grands Espaces' },
+              { title: 'Hors des sentiers battus', image: '/img/slowmundo/gotthard-tessin/sonogno-vue-vallee.webp', badge: 'Découvertes rares' },
+              { title: 'Itinéraires transfrontaliers', image: 'https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?q=80&w=800&auto=format&fit=crop', badge: 'Multi-pays' },
+              { title: 'Romantique', image: '/img/slowmundo/paysage-italie-mer.webp', badge: 'Évasion à deux' },
             ].map((style, idx) => (
               <motion.div
                 key={style.title}

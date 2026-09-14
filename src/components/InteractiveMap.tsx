@@ -163,7 +163,7 @@ export default function InteractiveMap({ region }: InteractiveMapProps) {
                       const frenchName = countryTranslations[geo.properties.name] || geo.properties.name;
                       const isOffered = [
                         "France", "Italie", "Royaume-Uni", "Macédoine du Nord",
-                        "Belgique", "Pays-Bas", "Allemagne", "Suisse", "Autriche", "Liechtenstein", 
+                        "Belgique", "Pays-Bas", "Luxembourg", "Allemagne", "Suisse", "Autriche", "Liechtenstein",
                         "Slovénie", "Slovaquie", "Pologne", "Tchéquie", "Albanie", "Grèce", 
                         "Espagne", "Portugal", "Islande", "Irlande",
                         "Inde", "Japon", "Vietnam", "Malaisie"

@@ -18,7 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Trips + per-country listing pages, all derived from Sanity
   const tripPairs = await getAllTripSlugs();
-  const countrySlugs = Array.from(new Set(tripPairs.map((p) => p.country)));
+  const countrySlugs = Array.from(new Set(tripPairs.flatMap((p) => p.countries)));
 
   const countryRoutes: MetadataRoute.Sitemap = countrySlugs.map((slug) => ({
     url: `${BASE_URL}/voyages/${slug}`,

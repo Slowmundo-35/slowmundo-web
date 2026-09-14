@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, MapPin, Clock, Train, Check, X, Star, Home, Calendar, ChevronDown, ChevronUp, Download, ChevronLeft, ChevronRight, Compass } from 'lucide-react';
 import type { Trip, ItineraryDay } from '@/data/trips';
+import { getTripCountries } from '@/data/trips';
 import { TripContactForm } from '@/components/TripContactForm';
 import ShareButton from '@/components/ShareButton';
 import type { MapWaypoint } from '@/components/InteractiveItineraryMap';
@@ -913,7 +914,7 @@ export default function VoyageDetails({ trip }: { trip: Trip | null }) {
           <div className="flex flex-wrap items-center gap-6 md:gap-10 text-text-main font-semibold mb-8">
             <div className="flex items-center gap-2">
               <MapPin className="w-5 h-5 text-primary" />
-              <span className="text-base md:text-lg">{trip.country}</span>
+              <span className="text-base md:text-lg">{getTripCountries(trip).join(', ')}</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-5 h-5 text-primary" />
@@ -1175,7 +1176,7 @@ export default function VoyageDetails({ trip }: { trip: Trip | null }) {
 
       {/* Formulaire de contact en bas de page pour personnalisation / demande de devis */}
       <div id="contact" className="pt-8 pb-20 max-w-4xl mx-auto px-6">
-        <TripContactForm country={trip.country} tripTitle={trip.title} />
+        <TripContactForm country={trip.country} countries={getTripCountries(trip)} tripTitle={trip.title} />
       </div>
     </main>
   );
