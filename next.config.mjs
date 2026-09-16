@@ -14,8 +14,9 @@ const publicCspDirectives = {
   "default-src": ["'self'"],
   "script-src": [
     "'self'",
-    "'unsafe-inline'",             // Next injects small inline bootstraps
-    "https://core.sanity-cdn.com", // Sanity preview / visual editing bridge
+    "'unsafe-inline'",                     // Next injects small inline bootstraps
+    "https://core.sanity-cdn.com",         // Sanity preview / visual editing bridge
+    "https://www.googletagmanager.com",    // GA4 gtag.js
     ...(isDev ? ["'unsafe-eval'"] : []),
   ],
   "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
@@ -27,6 +28,7 @@ const publicCspDirectives = {
     "https://*.tile.openstreetmap.org",       // Leaflet OSM tiles
     "https://*.basemaps.cartocdn.com",        // Leaflet CartoDB tiles
     "https://cdn.sanity.io",                  // Sanity images CDN
+    "https://www.google-analytics.com",       // GA4 pixel beacons
   ],
   "font-src": ["'self'", "data:", "https://fonts.gstatic.com"],
   "connect-src": [
@@ -34,6 +36,9 @@ const publicCspDirectives = {
     "https://*.apicdn.sanity.io",             // Sanity GROQ queries (CDN)
     "https://*.api.sanity.io",                // Sanity GROQ queries (direct)
     "https://core.sanity-cdn.com",            // Sanity preview bridge
+    "https://www.google-analytics.com",       // GA4 event collection
+    "https://*.analytics.google.com",         // GA4 collection endpoints
+    "https://www.googletagmanager.com",       // Tag Manager config fetches
     ...(isDev ? ["ws://localhost:5173", "http://localhost:5173"] : []),
   ],
   "frame-ancestors": ["'none'"],              // no external iframe embedding
