@@ -13,19 +13,22 @@ export const dynamic = "force-dynamic";
  * Validation
  * ============================================================ */
 
-// Shared fields (both forms)
+// Shared fields (both forms). Phone is optional now — GDPR requires that
+// we only collect data strictly necessary to answer the request, and an
+// email is enough. Making it optional also lifts conversion.
 const BaseSchema = z.object({
   firstName: z.string().trim().min(1).max(80),
   lastName: z.string().trim().min(1).max(80),
   email: z.string().trim().toLowerCase().email().max(200),
-  phone: z.string().trim().min(4).max(40),
+  phone: z.string().trim().max(40).optional().default(""),
   message: z.string().trim().max(4000).optional().default(""),
   // Honeypot — humans never fill this hidden field. Bots often do.
   // We accept it in the payload but reject the submission if non-empty.
   website: z.string().max(0).optional().default(""),
 });
 
-// Trip-page form (embedded on /voyages/[country]/[slug])
+// Trip-page form (embedded on /voyages/[country]/[slug]).
+// Consent is now required on this form too — was missing before.
 const TripSchema = BaseSchema.extend({
   source: z.literal("trip"),
   tripCountry: z.string().trim().min(1).max(80),
@@ -33,6 +36,9 @@ const TripSchema = BaseSchema.extend({
   tripTitle: z.string().trim().max(200).optional(),
   groupSize: z.string().trim().max(10),
   residence: z.string().trim().max(40),
+  consent: z.boolean().refine((v) => v === true, {
+    message: "Consentement RGPD requis",
+  }),
 });
 
 // Generic /contact page form
@@ -181,6 +187,27 @@ export async function POST(req: NextRequest) {
     null;
   const ipHash = hashIp(ip);
   const userAgent = req.headers.get("user-agent")?.slice(0, 300) || "";
+
+  // Rate limit — max 5 submissions per hour per IP hash. Persistent across
+  // serverless invocations because we count directly in Sanity where we
+  // store the submissions anyway. We fail-open on read errors so a Sanity
+  // outage doesn't lock the form; the honeypot + URL-count checks above
+  // still catch most spam.
+  try {
+    assertWriteTokenPresent();
+    const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+    const recent = await writeClient.fetch<number>(
+      `count(*[_type == "contactSubmission" && ipHash == $ipHash && submittedAt > $since])`,
+      { ipHash, since }
+    );
+    if (typeof recent === "number" && recent >= 5) {
+      // Silent 200 so bots don't discover the threshold; log for triage.
+      console.warn(`[/api/contact] rate limit hit for ipHash=${ipHash} (${recent}/h)`);
+      return NextResponse.json({ ok: true }, { status: 200 });
+    }
+  } catch (err) {
+    console.error("[/api/contact] rate-limit lookup failed:", err);
+  }
 
   // 1) Persist to Sanity
   try {

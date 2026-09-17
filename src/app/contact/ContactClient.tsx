@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import Select from '@/components/ui/Select';
@@ -237,16 +238,15 @@ export default function Contact() {
                   />
                 </div>
 
-                {/* Téléphone */}
+                {/* Téléphone (optionnel — email suffit pour recontact) */}
                 <div className="space-y-1.5">
                   <label htmlFor="telephone" className="block text-sm font-semibold text-text-main">
-                    Téléphone <span className="text-red-500">*</span>
+                    Téléphone <span className="text-gray-400 font-normal">(Optionnel)</span>
                   </label>
                   <input
                     type="tel"
                     id="telephone"
                     name="telephone"
-                    required
                     value={formData.telephone}
                     onChange={handleChange}
                     className="w-full px-3.5 py-2.5 text-sm rounded-xl text-text-main bg-gray-50 border border-gray-200 focus:outline-none focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
@@ -341,7 +341,16 @@ export default function Contact() {
                     className="w-5 h-5 mt-0.5 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer shrink-0"
                   />
                   <span className="text-xs md:text-sm text-text-muted leading-relaxed">
-                    En soumettant ce formulaire, j'accepte que les informations saisies soient utilisées par Slowmundo pour me recontacter et concevoir mon voyage.
+                    En soumettant ce formulaire, j&apos;accepte que Slowmundo conserve les
+                    informations saisies pour me recontacter et concevoir mon voyage,
+                    conformément à la{' '}
+                    <Link
+                      href="/politique-confidentialite"
+                      className="text-primary hover:underline font-semibold"
+                    >
+                      politique de confidentialité
+                    </Link>
+                    .
                   </span>
                 </label>
               </div>

@@ -112,6 +112,24 @@ export function articleSchema(article: Article) {
   };
 }
 
+/** JSON-LD schema.org — FAQ page (services / home). */
+export function faqPageSchema(
+  faqs: Array<{ question: string; answer: string }>
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.answer,
+      },
+    })),
+  };
+}
+
 /** JSON-LD schema.org — breadcrumb navigation. */
 export function breadcrumbSchema(
   items: Array<{ name: string; url: string }>

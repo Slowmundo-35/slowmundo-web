@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Send, CheckCircle2 } from 'lucide-react';
 import Select from './ui/Select';
 
@@ -34,6 +35,7 @@ export const TripContactForm: React.FC<TripContactFormProps> = ({ country, count
     nombrePersonnes: '2',
     residence: 'Bretagne',
     message: '',
+    consentement: false,
     // Honeypot — must stay empty. Hidden from real users via CSS.
     website: '',
   });
@@ -41,8 +43,9 @@ export const TripContactForm: React.FC<TripContactFormProps> = ({ country, count
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    setFormData((prev) => ({ ...prev, [name]: val }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -66,6 +69,7 @@ export const TripContactForm: React.FC<TripContactFormProps> = ({ country, count
           groupSize: formData.nombrePersonnes,
           residence: formData.residence,
           message: formData.message,
+          consent: formData.consentement,
           website: formData.website,
         }),
       });
@@ -184,16 +188,15 @@ export const TripContactForm: React.FC<TripContactFormProps> = ({ country, count
             />
           </div>
 
-          {/* Téléphone */}
+          {/* Téléphone (optionnel — email suffit pour recontact) */}
           <div className="space-y-1.5">
             <label htmlFor="telephone" className="block text-xs font-bold text-text-main uppercase tracking-wider">
-              Téléphone <span className="text-red-500">*</span>
+              Téléphone <span className="text-gray-400 font-normal font-sans normal-case">(Optionnel)</span>
             </label>
             <input
               type="tel"
               id="telephone"
               name="telephone"
-              required
               placeholder="06 12 34 56 78"
               value={formData.telephone}
               onChange={handleChange}
@@ -280,6 +283,32 @@ export const TripContactForm: React.FC<TripContactFormProps> = ({ country, count
             onChange={handleChange}
             className="w-full px-4 py-3 text-sm rounded-xl text-text-main bg-gray-50 border border-gray-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all resize-y"
           />
+        </div>
+
+        {/* Consentement RGPD — obligatoire pour envoyer, lié à la politique de confidentialité */}
+        <div className="pt-2">
+          <label className="flex items-start gap-3 cursor-pointer group">
+            <input
+              type="checkbox"
+              name="consentement"
+              required
+              checked={formData.consentement}
+              onChange={handleChange}
+              className="w-5 h-5 mt-0.5 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer shrink-0"
+            />
+            <span className="text-xs md:text-sm text-text-muted leading-relaxed">
+              En soumettant ce formulaire, j&apos;accepte que Slowmundo conserve les
+              informations saisies pour me recontacter et concevoir mon voyage,
+              conformément à la{' '}
+              <Link
+                href="/politique-confidentialite"
+                className="text-primary hover:underline font-semibold"
+              >
+                politique de confidentialité
+              </Link>
+              .
+            </span>
+          </label>
         </div>
 
         {/* Error message */}
