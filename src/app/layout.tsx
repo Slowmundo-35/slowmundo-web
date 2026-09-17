@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   description:
     "Voyage éco responsable en train à travers l'Europe et l'Asie. Slowmundo, agence de voyage bas carbone à Rennes, conçoit vos itinéraires personnalisés en slow tourisme.",
-  metadataBase: new URL("https://www.slowmundo.fr"),
+  metadataBase: new URL("https://slowmundo.fr"),
   keywords: [
     "voyage éco responsable",
     "voyage bas carbone",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     siteName: "Slowmundo",
-    url: "https://www.slowmundo.fr",
+    url: "https://slowmundo.fr",
     images: [
       {
         url: OG_DEFAULT_IMAGE,

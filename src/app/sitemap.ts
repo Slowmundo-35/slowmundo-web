@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAllArticles, getAllTripSlugs } from "@/lib/sanity.queries";
 
-const BASE_URL = "https://www.slowmundo.fr";
+const BASE_URL = "https://slowmundo.fr";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();

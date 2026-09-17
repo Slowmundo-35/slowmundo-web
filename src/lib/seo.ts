@@ -2,7 +2,7 @@ import type { Trip } from "@/data/trips";
 import type { Article } from "@/data/articlesData";
 import { getCountrySlug, getTripSlug } from "@/data/trips";
 
-export const SITE_URL = "https://www.slowmundo.fr";
+export const SITE_URL = "https://slowmundo.fr";
 export const SITE_NAME = "Slowmundo";
 
 /** Fallback OG image used when a page doesn't ship its own. Raw Slowmundo photo, no overlay. */
