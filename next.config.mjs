@@ -36,7 +36,7 @@ const publicCspDirectives = {
     "https://*.apicdn.sanity.io",             // Sanity GROQ queries (CDN)
     "https://*.api.sanity.io",                // Sanity GROQ queries (direct)
     "https://core.sanity-cdn.com",            // Sanity preview bridge
-    "https://www.google-analytics.com",       // GA4 event collection
+    "https://*.google-analytics.com",         // GA4 event collection (regional endpoints too)
     "https://*.analytics.google.com",         // GA4 collection endpoints
     "https://www.googletagmanager.com",       // Tag Manager config fetches
     ...(isDev ? ["ws://localhost:5173", "http://localhost:5173"] : []),
