@@ -93,6 +93,18 @@ export default function Footer() {
             <li><Link href="/mentions-legales" className="hover:text-white transition-colors">Mentions légales</Link></li>
             <li><Link href="/cgv" className="hover:text-white transition-colors">Conditions générales de vente</Link></li>
             <li><Link href="/politique-confidentialite" className="hover:text-white transition-colors">Politique de confidentialité</Link></li>
+            <li>
+              <button
+                type="button"
+                onClick={() => {
+                  const tac = (window as unknown as { tarteaucitron?: { userInterface?: { openPanel?: () => void } } }).tarteaucitron;
+                  tac?.userInterface?.openPanel?.();
+                }}
+                className="hover:text-white transition-colors text-left"
+              >
+                Gérer mes cookies
+              </button>
+            </li>
             <li><Link href="/#faq" className="hover:text-white transition-colors">F.A.Q</Link></li>
           </ul>
         </div>

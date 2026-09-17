@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
 import GoogleAnalytics from "../GoogleAnalytics";
+import CookieBanner from "../CookieBanner";
 
 /**
  * Wraps the public site with Navbar + Footer + ScrollToTop.
@@ -23,6 +24,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
   return (
     <>
       <GoogleAnalytics />
+      <CookieBanner />
       <ScrollToTop />
       <div className="flex flex-col min-h-screen">
         <Navbar />

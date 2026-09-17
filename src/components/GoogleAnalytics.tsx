@@ -62,6 +62,23 @@ export default function GoogleAnalytics() {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           window.gtag = gtag;
+          // Consent Mode v2 — every bucket denied by default so no
+          // analytics cookie or event is sent until the visitor
+          // explicitly accepts in the tarteaucitron banner. Once they
+          // do, that banner calls gtag('consent','update',...) and GA4
+          // back-fills the queued events. functionality_storage and
+          // security_storage are granted because they cover things like
+          // load balancing and CSRF tokens, not tracking.
+          gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'personalization_storage': 'denied',
+            'functionality_storage': 'granted',
+            'security_storage': 'granted',
+            'wait_for_update': 500
+          });
           gtag('js', new Date());
           gtag('config', '${GA_ID}', { send_page_view: false });
         `}
