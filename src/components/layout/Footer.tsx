@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Facebook, Instagram, MapPin, X } from "lucide-react";
+import { MapPin, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 export default function Footer() {
@@ -74,7 +74,15 @@ export default function Footer() {
           <h4 className="text-[16px] font-semibold mb-6 underline underline-offset-4 decoration-white/50">Inspirations</h4>
           <ul className="space-y-4 text-[15px] text-white/90">
             <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
-            <li><a href="#" onClick={(e) => openModal("brochure", e)} className="hover:text-white transition-colors">Brochure</a></li>
+            <li>
+              <button
+                type="button"
+                onClick={(e) => openModal("brochure", e)}
+                className="hover:text-white transition-colors text-left"
+              >
+                Brochure
+              </button>
+            </li>
           </ul>
         </div>
 
@@ -96,14 +104,19 @@ export default function Footer() {
             <li><a href="tel:0676371839" className="hover:text-white transition-colors">06 76 37 18 39</a></li>
             <li><a href="mailto:contact@slowmundo.fr" className="hover:text-white transition-colors">contact@slowmundo.fr</a></li>
           </ul>
+          {/* Social icons — commented out until Alexis provides real
+              Facebook / Instagram URLs. Rendering empty `href="#"` anchors
+              creates SEO-hurting dead links; leaving the block hidden is
+              cleaner than showing broken icons.
           <div className="flex gap-4 mt-6">
-            <a href="#" className="w-8 h-8 rounded-full bg-white text-primary flex items-center justify-center hover:bg-gray-100 transition-colors" aria-label="Facebook">
+            <a href="https://facebook.com/slowmundo" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white text-primary flex items-center justify-center hover:bg-gray-100 transition-colors" aria-label="Facebook">
               <Facebook className="w-5 h-5 fill-current" />
             </a>
-            <a href="#" className="w-8 h-8 rounded-full bg-white text-primary flex items-center justify-center hover:bg-gray-100 transition-colors" aria-label="Instagram">
+            <a href="https://instagram.com/slowmundo" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white text-primary flex items-center justify-center hover:bg-gray-100 transition-colors" aria-label="Instagram">
               <Instagram className="w-5 h-5" />
             </a>
           </div>
+          */}
         </div>
 
       </div>

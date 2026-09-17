@@ -8,12 +8,10 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/mentions-legales",
-          "/cgv",
-          "/politique-confidentialite",
-        ],
+        // Legal pages are now indexable — for a travel agency they carry
+        // trust signals (Atout France registration, garant financier, RC pro)
+        // Google looks for. Only the API surface stays disallowed.
+        disallow: ["/api/"],
       },
     ],
     sitemap: `${BASE_URL}/sitemap.xml`,
