@@ -125,7 +125,13 @@ export default function ShareButton({ url, title, className }: ShareButtonProps)
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.98 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 p-2 z-40"
+            // On mobile the ShareButton sits at the left of its flex row,
+            // so `right-0` pushed the 256-px menu off the left edge of
+            // the viewport. Left-align on small screens, right-align from
+            // md+ where the button lives near the right edge. The
+            // max-w calc is a hard clamp so the menu never exceeds the
+            // viewport minus its own padding.
+            className="absolute left-0 md:left-auto md:right-0 top-full mt-2 w-64 max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl border border-gray-100 p-2 z-40"
           >
             {networks.map((net) => (
               <button
