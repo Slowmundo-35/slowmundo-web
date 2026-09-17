@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { faqPageSchema } from "@/lib/seo";
+import { HOME_FAQS } from "@/data/homeFaqs";
 import HomeClient from "./HomeClient";
 
 // Page racine — override the layout defaults to keep title distinct from the template `%s | Slowmundo`.
@@ -12,5 +15,13 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <HomeClient />;
+  return (
+    <>
+      {/* Emit FAQPage JSON-LD from the same source the home accordion
+          uses, so schema.org markup and rendered answers stay strictly in
+          sync — required for Google to consider the schema valid. */}
+      <JsonLd data={faqPageSchema(HOME_FAQS)} />
+      <HomeClient />
+    </>
+  );
 }

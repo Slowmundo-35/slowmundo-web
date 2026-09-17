@@ -310,8 +310,10 @@ const Services = () => {
                   transition={{ delay: 0.08 * idx }}
                   className="bg-white border-2 border-primary/20 hover:border-primary rounded-2xl overflow-hidden transition-all duration-300 shadow-xs hover:shadow-md"
                 >
-                  <button 
+                  <button
                     onClick={() => setExpandedFaq(isOpen ? null : idx)}
+                    aria-expanded={isOpen}
+                    aria-controls={`services-faq-answer-${idx}`}
                     className="w-full text-left px-6 py-4 flex items-center justify-between font-bold text-primary text-base md:text-lg focus:outline-none cursor-pointer"
                   >
                     <span className="pr-4">{faq.question}</span>
@@ -319,20 +321,23 @@ const Services = () => {
                       <ChevronRight className="w-5 h-5" />
                     </div>
                   </button>
-                  <AnimatePresence>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <div className="px-6 pb-5 pt-1 text-text-muted text-[15px] leading-relaxed border-t border-gray-100">
-                          {faq.answer}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  {/* Answer is ALWAYS in DOM so it matches the FAQPage
+                      JSON-LD emitted on the server (see services/page.tsx).
+                      Google marks schema.org markup as invalid when the
+                      answer text isn't discoverable in the crawled HTML. */}
+                  <motion.div
+                    id={`services-faq-answer-${idx}`}
+                    role="region"
+                    initial={false}
+                    animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ overflow: 'hidden' }}
+                    aria-hidden={!isOpen}
+                  >
+                    <div className="px-6 pb-5 pt-1 text-text-muted text-[15px] leading-relaxed border-t border-gray-100">
+                      {faq.answer}
+                    </div>
+                  </motion.div>
                 </motion.div>
               );
             })}

@@ -188,21 +188,39 @@ export async function POST(req: NextRequest) {
   const ipHash = hashIp(ip);
   const userAgent = req.headers.get("user-agent")?.slice(0, 300) || "";
 
-  // Rate limit — max 5 submissions per hour per IP hash. Persistent across
-  // serverless invocations because we count directly in Sanity where we
-  // store the submissions anyway. We fail-open on read errors so a Sanity
-  // outage doesn't lock the form; the honeypot + URL-count checks above
-  // still catch most spam.
+  // Rate limit — max 10 submissions per hour, counted by IP hash OR by
+  // email. IP hash alone would over-catch legitimate users behind
+  // Carrier-Grade NAT (mobile networks, shared boxes with several people
+  // on the same public IP); email alone would miss a bot cycling
+  // addresses. Counting them independently and tripping on the higher of
+  // the two catches abuse without punishing couples or CGNAT.
+  //
+  // Persistent across serverless invocations because we count directly in
+  // Sanity where the submissions already live — no in-memory Map that
+  // resets on cold starts. Fails open on read errors so a Sanity outage
+  // doesn't lock the form; the honeypot + URL-count checks upstream still
+  // catch most spam.
+  const HOUR_MS = 60 * 60 * 1000;
+  const RATE_LIMIT = 10;
   try {
     assertWriteTokenPresent();
-    const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-    const recent = await writeClient.fetch<number>(
-      `count(*[_type == "contactSubmission" && ipHash == $ipHash && submittedAt > $since])`,
-      { ipHash, since }
-    );
-    if (typeof recent === "number" && recent >= 5) {
+    const since = new Date(Date.now() - HOUR_MS).toISOString();
+    const [byIp, byEmail] = await Promise.all([
+      writeClient.fetch<number>(
+        `count(*[_type == "contactSubmission" && ipHash == $ipHash && submittedAt > $since])`,
+        { ipHash, since }
+      ),
+      writeClient.fetch<number>(
+        `count(*[_type == "contactSubmission" && email == $email && submittedAt > $since])`,
+        { email: payload.email, since }
+      ),
+    ]);
+    const worst = Math.max(byIp ?? 0, byEmail ?? 0);
+    if (worst >= RATE_LIMIT) {
       // Silent 200 so bots don't discover the threshold; log for triage.
-      console.warn(`[/api/contact] rate limit hit for ipHash=${ipHash} (${recent}/h)`);
+      console.warn(
+        `[/api/contact] rate limit hit — ipHash=${ipHash} (${byIp}/h), email=${payload.email} (${byEmail}/h)`
+      );
       return NextResponse.json({ ok: true }, { status: 200 });
     }
   } catch (err) {
