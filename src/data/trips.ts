@@ -14,6 +14,7 @@ const StoredTripSchema = z.object({
   country: z.string().min(1).max(60),
   countries: z.array(z.string().trim().min(1).max(60)).max(50).optional(),
   type: z.string().min(1).max(100),
+  types: z.array(z.string().trim().min(1).max(100)).max(10).optional(),
   transport: z.string().min(1).max(100),
   duration: z.string().min(1).max(60),
   tag: z.string().max(60),
@@ -63,6 +64,8 @@ export interface Trip {
   /** Additional countries visited; country remains the primary URL country. */
   countries?: string[];
   type: string;
+  /** Additional trip types; `type` remains the primary/default one shown. */
+  types?: string[];
   transport: string;
   duration: string;
   tag: string;
@@ -92,6 +95,18 @@ export function getTripCountries(trip: Pick<Trip, 'country' | 'countries'>): str
 /** Selecting several countries includes trips visiting any selected country. */
 export function matchesTripCountries(trip: Pick<Trip, 'country' | 'countries'>, countries: string[]): boolean {
   return countries.length === 0 || getTripCountries(trip).some(c => countries.some(selected => slugify(selected) === slugify(c)));
+}
+
+/** All voyage types a trip carries, primary first, deduplicated. */
+export function getTripTypes(trip: Pick<Trip, 'type' | 'types'>): string[] {
+  return [...new Set([trip.type, ...(trip.types ?? [])].map(t => t.trim()).filter(Boolean))];
+}
+
+/** A trip matches the filter when any of its types equals the picked one.
+ *  Passing "Tous" (or an empty string) matches everything. */
+export function matchesTripType(trip: Pick<Trip, 'type' | 'types'>, type: string): boolean {
+  if (!type || type === 'Tous') return true;
+  return getTripTypes(trip).some(t => t === type);
 }
 
 /** Country slug (first URL segment). */

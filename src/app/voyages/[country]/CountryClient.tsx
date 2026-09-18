@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Clock, Leaf, MapPin } from "lucide-react";
 import type { Trip } from "@/data/trips";
-import { getTripSlug, getCountrySlug, getTripCountries } from "@/data/trips";
+import { getTripSlug, getCountrySlug, getTripCountries, getTripTypes } from "@/data/trips";
 
 interface CountryClientProps {
   countrySlug: string;
@@ -77,7 +77,7 @@ export default function CountryClient({ countrySlug, countryName, trips }: Count
                       <MapPin className="w-3.5 h-3.5" />
                       <span>{getTripCountries(trip).join(', ')}</span>
                       <span>•</span>
-                      <span>{trip.type}</span>
+                      <span>{getTripTypes(trip).join(' · ')}</span>
                     </div>
                     <h3 className="text-lg font-bold text-text-main mb-3 leading-snug flex-grow">
                       {trip.title}

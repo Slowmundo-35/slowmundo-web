@@ -19,6 +19,7 @@ const TRIP_LIST_FIELDS = `
   countries,
   continent,
   type,
+  types,
   transport,
   duration,
   price,
@@ -29,7 +30,6 @@ const TRIP_LIST_FIELDS = `
 
 const TRIP_DETAIL_FIELDS = `
   ${TRIP_LIST_FIELDS},
-  "images": images[].asset->url,
   accommodation,
   idealPeriod,
   highlights,
@@ -63,13 +63,13 @@ type SanityTripRaw = {
   countries?: string[];
   continent?: string;
   type?: string;
+  types?: string[];
   transport?: string;
   duration?: string;
   price?: number;
   tag?: string;
   description?: string;
   image?: string;
-  images?: (string | null)[];
   accommodation?: string;
   idealPeriod?: string;
   highlights?: string[];
@@ -90,12 +90,12 @@ function normalize(raw: SanityTripRaw): Trip {
     country: raw.country ?? "",
     countries: raw.countries ?? [],
     type: raw.type ?? "",
+    types: raw.types ?? [],
     transport: raw.transport ?? "",
     duration: raw.duration ?? "",
     tag: raw.tag ?? "",
     price: raw.price ?? 0,
     description: raw.description,
-    images: (raw.images ?? []).filter((u): u is string => !!u),
     accommodation: raw.accommodation,
     idealPeriod: raw.idealPeriod,
     highlights: raw.highlights,

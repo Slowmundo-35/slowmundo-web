@@ -66,9 +66,11 @@ export const trip = defineType({
     }),
     defineField({
       name: "type",
-      title: "Type de voyage",
+      title: "Type principal",
       type: "string",
       group: "essentials",
+      description:
+        "Type dominant du voyage — utilisé pour l'affichage principal et l'URL du filtre.",
       options: {
         list: [
           "Culture et patrimoine",
@@ -82,6 +84,33 @@ export const trip = defineType({
         ].map((v) => ({ title: v, value: v })),
       },
       validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "types",
+      title: "Autres types",
+      type: "array",
+      group: "essentials",
+      description:
+        "Ajoutez tous les types complémentaires — le voyage apparaîtra dans chacun des filtres correspondants. Ex : \"Nature et grands espaces\" + \"En train\".",
+      of: [
+        {
+          type: "string",
+          options: {
+            list: [
+              "Culture et patrimoine",
+              "Gastronomie",
+              "En train",
+              "Bas carbone",
+              "Nature et grands espaces",
+              "Hors des sentiers battus",
+              "Itinéraires transfrontaliers",
+              "Romantique",
+            ].map((v) => ({ title: v, value: v })),
+          },
+        },
+      ],
+      options: { layout: "tags" },
+      validation: (r) => r.unique().max(10),
     }),
     defineField({
       name: "transport",
@@ -190,20 +219,6 @@ export const trip = defineType({
         { name: "alt", title: "Texte alternatif", type: "string" },
       ],
       validation: (r) => r.required(),
-    }),
-    defineField({
-      name: "images",
-      title: "Galerie d'images",
-      type: "array",
-      group: "seo",
-      of: [
-        {
-          type: "image",
-          options: { hotspot: true },
-          fields: [{ name: "alt", type: "string", title: "Alt" }],
-        },
-      ],
-      validation: (r) => r.max(20),
     }),
   ],
   preview: {

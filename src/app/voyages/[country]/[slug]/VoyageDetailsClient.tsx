@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, MapPin, Clock, Train, Check, X, Star, Home, Calendar, ChevronDown, ChevronUp, Download, ChevronLeft, ChevronRight, Compass, Utensils, BedDouble } from 'lucide-react';
 import type { Trip, ItineraryDay } from '@/data/trips';
-import { getTripCountries } from '@/data/trips';
+import { getTripCountries, getTripTypes } from '@/data/trips';
 import { TripContactForm } from '@/components/TripContactForm';
 import ShareButton from '@/components/ShareButton';
 import type { MapWaypoint } from '@/components/InteractiveItineraryMap';
@@ -676,12 +676,12 @@ function buildRichItinerary(trip: Trip): ItineraryDay[] {
     const fallbackImg = trip.image;
     return trip.itinerary.map((d, idx) => ({
       ...d,
+      // Each day's own photos are the source of truth. If Alexis leaves a
+      // day empty we just repeat the trip's main image — the "Galerie"
+      // pool that used to sit between the two got dropped when we removed
+      // the field from the Sanity schema.
       images:
-        d.images && d.images.length > 0
-          ? d.images
-          : trip.images && trip.images.length > 0
-            ? [trip.images[idx % trip.images.length]]
-            : [fallbackImg],
+        d.images && d.images.length > 0 ? d.images : [fallbackImg],
       // Percent-based coords (x/y) are only used by the decorative SVG line — safe defaults.
       coords: d.coords ?? { x: 20 + (idx * 15) % 60, y: 30 + (idx * 12) % 40 },
       // The UI iterates `activities.map(...)` — always provide at least an empty array.
@@ -710,7 +710,6 @@ function buildRichItinerary(trip: Trip): ItineraryDay[] {
 
   const pool = defaultImagePools[trip.country] || [
     trip.image,
-    ...(trip.images || []),
     'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop',
@@ -902,8 +901,8 @@ export default function VoyageDetails({ trip }: { trip: Trip | null }) {
             <span className="bg-primary/10 text-primary px-3 py-1.5 md:px-3.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap shrink-0">
               À partir de {trip.price}€
             </span>
-            <span className="bg-gray-100 text-text-main px-3 py-1.5 md:px-3.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap shrink-0">
-              {trip.type}
+            <span className="bg-gray-100 text-text-main px-3 py-1.5 md:px-3.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider shrink-0">
+              {getTripTypes(trip).join(' · ')}
             </span>
           </div>
 

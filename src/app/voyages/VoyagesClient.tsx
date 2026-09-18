@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import Select from '@/components/ui/Select';
 import MultiSelect from '@/components/ui/MultiSelect';
-import { getTripCountries, matchesTripCountries } from '@/data/trips';
+import { getTripCountries, getTripTypes, matchesTripCountries, matchesTripType } from '@/data/trips';
 import type { Trip } from '@/data/trips';
 import { slugify } from '@/utils/slugify';
 
@@ -77,7 +77,7 @@ export default function Voyages({ trips }: VoyagesClientProps) {
   const filteredTrips = allTrips.filter(trip => {
     if (filterRegion !== 'Tout' && trip.continent !== filterRegion) return false;
     if (!matchesTripCountries(trip, filterCountries)) return false;
-    if (filterType !== 'Tous' && trip.type !== filterType) return false;
+    if (!matchesTripType(trip, filterType)) return false;
     if (filterDuration !== 'Toutes' && !matchesDurationFilter(trip.duration, filterDuration)) return false;
     return true;
   });
@@ -245,7 +245,7 @@ export default function Voyages({ trips }: VoyagesClientProps) {
                       </div>
                       <span className="text-gray-300">•</span>
                       <div className="text-primary font-bold text-xs bg-primary/10 px-2.5 py-1 rounded-full">
-                        {card.type}
+                        {getTripTypes(card).join(' · ')}
                       </div>
                     </div>
                   </div>
