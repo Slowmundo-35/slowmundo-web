@@ -66,6 +66,7 @@ const studioCspDirectives = {
     "https://*.apicdn.sanity.io",
     "https://*.sanity.io",
     "wss://*.api.sanity.io",
+    "https://nominatim.openstreetmap.org", // geocoder used by the "Générer les coordonnées" button on itinerary days
     ...(isDev ? ["ws://localhost:5173", "http://localhost:5173"] : []),
   ],
   "worker-src": ["'self'", "blob:"],

@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { GeocodeLocationInput } from "../components/GeocodeLocationInput";
 
 /**
  * Embedded inside a Trip. NOT a standalone document.
@@ -67,18 +68,25 @@ export const itineraryDay = defineType({
       name: "locationName",
       title: "Lieu (nom lisible)",
       type: "string",
-      description: 'Ex : "Lucerne", "Mont Rigi", "Brione (Verzasca)"',
+      description:
+        'Ex : "Lucerne", "Mont Rigi", "Brione (Verzasca)". Clique sur "Générer les coordonnées" en dessous pour remplir automatiquement latitude et longitude.',
+      components: {
+        input: GeocodeLocationInput,
+      },
     }),
     defineField({
       name: "lat",
       title: "Latitude",
       type: "number",
-      description: "Pour afficher le point sur la carte interactive Leaflet",
+      description:
+        "Généré automatiquement depuis le champ Lieu au-dessus, ou modifiable manuellement.",
     }),
     defineField({
       name: "lng",
       title: "Longitude",
       type: "number",
+      description:
+        "Généré automatiquement depuis le champ Lieu au-dessus, ou modifiable manuellement.",
     }),
     defineField({
       name: "images",
