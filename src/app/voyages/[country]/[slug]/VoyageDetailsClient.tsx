@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, MapPin, Clock, Train, Check, X, Star, Home, Calendar, ChevronDown, ChevronUp, Download, ChevronLeft, ChevronRight, Compass } from 'lucide-react';
+import { ArrowLeft, MapPin, Clock, Train, Check, X, Star, Home, Calendar, ChevronDown, ChevronUp, Download, ChevronLeft, ChevronRight, Compass, Utensils, BedDouble } from 'lucide-react';
 import type { Trip, ItineraryDay } from '@/data/trips';
 import { getTripCountries } from '@/data/trips';
 import { TripContactForm } from '@/components/TripContactForm';
@@ -1006,6 +1006,54 @@ export default function VoyageDetails({ trip }: { trip: Trip | null }) {
                     <p className="text-text-muted text-sm md:text-base leading-relaxed mb-6">
                       {step.desc}
                     </p>
+
+                    {/* Résumé pratique du jour : repas / transport / hébergement.
+                        Chaque badge n'apparaît que si le champ correspondant est
+                        rempli côté Sanity — laisse Alexis n'en mettre qu'un seul
+                        ou aucun sans casser la mise en page. */}
+                    {(step.meals || step.transport || step.accommodation) && (
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                        {step.meals && (
+                          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-primary/5 border border-primary/10">
+                            <Utensils className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                            <div className="min-w-0">
+                              <div className="text-[10px] font-bold uppercase tracking-wider text-primary mb-0.5">
+                                Repas
+                              </div>
+                              <div className="text-xs md:text-sm font-medium text-text-main leading-snug break-words">
+                                {step.meals}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        {step.transport && (
+                          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-primary/5 border border-primary/10">
+                            <Train className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                            <div className="min-w-0">
+                              <div className="text-[10px] font-bold uppercase tracking-wider text-primary mb-0.5">
+                                Transport
+                              </div>
+                              <div className="text-xs md:text-sm font-medium text-text-main leading-snug break-words">
+                                {step.transport}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        {step.accommodation && (
+                          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-primary/5 border border-primary/10">
+                            <BedDouble className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                            <div className="min-w-0">
+                              <div className="text-[10px] font-bold uppercase tracking-wider text-primary mb-0.5">
+                                Hébergement
+                              </div>
+                              <div className="text-xs md:text-sm font-medium text-text-main leading-snug break-words">
+                                {step.accommodation}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
 
                     {/* Activities Schedule Breakdown */}
                     {step.activities && step.activities.length > 0 && (

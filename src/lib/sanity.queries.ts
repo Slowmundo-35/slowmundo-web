@@ -44,6 +44,9 @@ const TRIP_DETAIL_FIELDS = `
     lng,
     rhythm,
     desc,
+    meals,
+    transport,
+    accommodation,
     "images": images[].asset->url
   }
 `;
@@ -107,6 +110,9 @@ function normalize(raw: SanityTripRaw): Trip {
       lat: d.lat,
       lng: d.lng,
       rhythm: d.rhythm,
+      meals: d.meals,
+      transport: d.transport,
+      accommodation: d.accommodation,
       images: (d.images ?? []).filter((u): u is string => !!u),
     })) as ItineraryDay[] | undefined,
   };

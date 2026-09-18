@@ -40,6 +40,12 @@ export interface ItineraryDay {
   title: string;
   desc: string;
   rhythm?: 'Doux' | 'Modéré' | 'Soutenu';
+  /** One-line practical summary: what you eat that day. */
+  meals?: string;
+  /** One-line practical summary: how you travel that day. */
+  transport?: string;
+  /** One-line practical summary: where you sleep that night. */
+  accommodation?: string;
   images?: string[];
   activities?: ItineraryActivity[];
   locationName?: string;

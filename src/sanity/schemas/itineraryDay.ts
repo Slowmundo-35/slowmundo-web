@@ -41,6 +41,28 @@ export const itineraryDay = defineType({
         layout: "radio",
       },
     }),
+    // ---- Résumé pratique du jour (repas / transport / hébergement) ----
+    // Chaque champ est facultatif — s'il est vide côté Sanity, le badge
+    // correspondant ne s'affiche pas sur la fiche voyage. Format libre :
+    // Alexis peut y mettre 1 mot ou une phrase courte.
+    defineField({
+      name: "meals",
+      title: "Repas",
+      type: "string",
+      description: 'Ex : "Petit-déjeuner et dîner inclus", "Déjeuner libre"',
+    }),
+    defineField({
+      name: "transport",
+      title: "Transport",
+      type: "string",
+      description: 'Ex : "Train panoramique Gotthard", "Bateau + marche"',
+    }),
+    defineField({
+      name: "accommodation",
+      title: "Hébergement",
+      type: "string",
+      description: 'Ex : "Hôtel 3★ centre-ville", "Chalet en montagne"',
+    }),
     defineField({
       name: "locationName",
       title: "Lieu (nom lisible)",
