@@ -118,6 +118,10 @@ export default function CookieBanner() {
         strategy="afterInteractive"
         onLoad={onScriptLoad}
       />
+      {/* Slowmundo brand override — painted AFTER tarteaucitron's built-in
+          stylesheet so our rules win on paint. We use <link> instead of
+          @import so the browser loads it in parallel. */}
+      <link rel="stylesheet" href="/tarteaucitron/slowmundo-theme.css" />
     </>
   );
 }

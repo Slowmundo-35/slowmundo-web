@@ -1,0 +1,110 @@
+/**
+ * Slowmundo brand theme for tarteaucitron.
+ *
+ * Every button that ships with the default yellow (#fbd600) background
+ * is repainted with the Slowmundo primary green (#007453 / hover #005c42)
+ * and white text. Overrides are !important because tarteaucitron uses
+ * !important itself on some of these rules; specificity alone wouldn't
+ * win otherwise.
+ *
+ * CNIL requires the "Accept" and "Refuse" CTAs to be equally prominent,
+ * so we keep them both on the same solid-green background.
+ */
+
+/* --- Banner : main CTAs (Accepter / Refuser / Personnaliser) --- */
+#tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronCloseAlert,
+#tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize,
+#tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize2,
+#tarteaucitronRoot .tarteaucitronCTAButton {
+  background: #007453 !important;
+  color: #fff !important;
+  border: 0 !important;
+}
+
+#tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronCloseAlert:hover,
+#tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize:hover,
+#tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize2:hover,
+#tarteaucitronRoot .tarteaucitronCTAButton:hover {
+  background: #005c42 !important;
+}
+
+/* --- Banner : "Politique de confidentialité" link-style CTA --- */
+#tarteaucitronRoot #tarteaucitronPrivacyUrl,
+#tarteaucitronRoot #tarteaucitronPrivacyUrlDialog,
+#tarteaucitron #tarteaucitronPrivacyUrl,
+#tarteaucitron #tarteaucitronPrivacyUrlDialog {
+  background: #fff !important;
+  color: #007453 !important;
+  border: 1px solid #007453 !important;
+}
+#tarteaucitronRoot #tarteaucitronPrivacyUrl:hover,
+#tarteaucitronRoot #tarteaucitronPrivacyUrlDialog:hover,
+#tarteaucitron #tarteaucitronPrivacyUrl:hover,
+#tarteaucitron #tarteaucitronPrivacyUrlDialog:hover {
+  background: #007453 !important;
+  color: #fff !important;
+}
+
+/* --- Preferences panel : per-service Autoriser / Refuser buttons --- */
+#tarteaucitronRoot .tarteaucitronAllow,
+#tarteaucitronRoot .tarteaucitronDeny,
+#tarteaucitron #tarteaucitronServices .tarteaucitronLine .tarteaucitronAsk .tarteaucitronAllow,
+#tarteaucitron #tarteaucitronServices .tarteaucitronLine .tarteaucitronAsk .tarteaucitronDeny {
+  background: #007453 !important;
+  color: #fff !important;
+}
+#tarteaucitronRoot .tarteaucitronAllow:hover,
+#tarteaucitronRoot .tarteaucitronDeny:hover,
+#tarteaucitron #tarteaucitronServices .tarteaucitronLine .tarteaucitronAsk .tarteaucitronAllow:hover,
+#tarteaucitron #tarteaucitronServices .tarteaucitronLine .tarteaucitronAsk .tarteaucitronDeny:hover {
+  background: #005c42 !important;
+}
+
+/* Currently-selected state on the header row (Tout accepter / Tout refuser) */
+#tarteaucitron #tarteaucitronServices #tarteaucitronAllAllowed.tarteaucitronIsSelected,
+#tarteaucitron #tarteaucitronServices #tarteaucitronAllDenied.tarteaucitronIsSelected,
+#tarteaucitron #tarteaucitronServices #tarteaucitronAllDenied2.tarteaucitronIsSelected,
+#tarteaucitron #tarteaucitronServices #tarteaucitronServices_mandatory .tarteaucitronLine button.tarteaucitronAllow,
+#tarteaucitron #tarteaucitronServices .tarteaucitronLine.tarteaucitronIsAllowed .tarteaucitronAllow,
+#tarteaucitron #tarteaucitronServices .tarteaucitronLine.tarteaucitronIsDenied .tarteaucitronDeny {
+  background-color: #007453 !important;
+  color: #fff !important;
+}
+
+/* Row border highlight when a service has a decision */
+#tarteaucitron #tarteaucitronServices .tarteaucitronLine.tarteaucitronIsAllowed,
+#tarteaucitron #tarteaucitronServices .tarteaucitronLine.tarteaucitronIsDenied {
+  border-color: #007453 !important;
+}
+
+/* --- Save button in the preferences dialog --- */
+html body #tarteaucitronRoot button#tarteaucitronSaveButton {
+  background: #007453 !important;
+  color: #fff !important;
+}
+html body #tarteaucitronRoot button#tarteaucitronSaveButton:hover {
+  background: #005c42 !important;
+}
+
+/* --- "Magic block" (in-page consent bricks) --- */
+.tarteaucitron-magic-block button {
+  background-color: #007453 !important;
+  color: #fff !important;
+}
+.tarteaucitron-magic-block button:hover {
+  background-color: #005c42 !important;
+}
+
+/* --- Fallback container (.tac_activate) shown in place of blocked iframes --- */
+.tac_activate .tarteaucitronAllow {
+  background-color: #007453 !important;
+  color: #fff !important;
+}
+.tac_activate .tarteaucitronAllow:hover {
+  background-color: #005c42 !important;
+}
+
+/* --- Floating "manage cookies" icon (bottom-right dot indicator) --- */
+#tarteaucitronAlertSmall #tarteaucitronManager #tarteaucitronDot #tarteaucitronDotGreen {
+  background-color: #007453 !important;
+}
