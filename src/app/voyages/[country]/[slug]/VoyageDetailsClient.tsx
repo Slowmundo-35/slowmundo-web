@@ -841,12 +841,6 @@ export default function VoyageDetails({ trip }: { trip: Trip | null }) {
     }
   };
 
-  // Fixed country/region Google Maps view with exact lat, lng, zoom
-  const countryMapCfg = COUNTRY_MAP_CONFIG[trip.country];
-  const googleMapsIframeUrl = countryMapCfg
-    ? `https://maps.google.com/maps?q=${countryMapCfg.lat},${countryMapCfg.lng}&t=m&z=${countryMapCfg.zoom}&output=embed`
-    : `https://maps.google.com/maps?q=${encodeURIComponent(trip.country)}&t=m&z=6&output=embed`;
-
   // SVG curved path connecting all waypoints on top of the map
   const svgPathData = fullItinerary.reduce((acc, d, i) => {
     if (!d.coords) return acc;

@@ -53,11 +53,14 @@ export const InteractiveItineraryMap: React.FC<InteractiveItineraryMapProps> = (
       scrollWheelZoom: true,
     });
 
-    // High quality Voyager tile layer
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    // OpenStreetMap standard tiles — free, no API key, no watermark.
+    // We used to hit CartoDB's Voyager basemap but Carto started
+    // stamping "API KEY REQUIRED" on tiles served without a registered
+    // key, which showed up all over the itinerary map.
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd',
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      subdomains: 'abc',
       maxZoom: 19,
     }).addTo(map);
 
