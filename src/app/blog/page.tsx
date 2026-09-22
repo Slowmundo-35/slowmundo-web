@@ -12,35 +12,23 @@ const BLOG_OG_DESC =
 const BLOG_IMAGE = "/img/slowmundo/paysage-italie.webp";
 const BLOG_IMAGE_ALT = "Blog Slowmundo — voyage bas carbone & slow tourisme";
 
-/**
- * Blog metadata is async: while no article is published we mark the index
- * page `noindex, follow` so Google doesn't crawl an empty listing as a
- * thin-content signal. Once articles ship it flips to indexable
- * automatically.
- */
-export async function generateMetadata(): Promise<Metadata> {
-  const articles = await getAllArticles();
-  const isEmpty = articles.length === 0;
-  return {
-    title: BLOG_TITLE,
-    description: BLOG_DESC,
-    alternates: { canonical: "/blog" },
-    robots: isEmpty
-      ? { index: false, follow: true }
-      : { index: true, follow: true },
-    openGraph: {
-      title: BLOG_OG_TITLE,
-      description: BLOG_OG_DESC,
-      images: ogImages(BLOG_IMAGE, BLOG_IMAGE_ALT),
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: BLOG_OG_TITLE,
-      description: BLOG_OG_DESC,
-      images: [BLOG_IMAGE],
-    },
-  };
-}
+export const metadata: Metadata = {
+  title: BLOG_TITLE,
+  description: BLOG_DESC,
+  alternates: { canonical: "/blog" },
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: BLOG_OG_TITLE,
+    description: BLOG_OG_DESC,
+    images: ogImages(BLOG_IMAGE, BLOG_IMAGE_ALT),
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: BLOG_OG_TITLE,
+    description: BLOG_OG_DESC,
+    images: [BLOG_IMAGE],
+  },
+};
 
 export default async function Page() {
   const articles = await getAllArticles();
