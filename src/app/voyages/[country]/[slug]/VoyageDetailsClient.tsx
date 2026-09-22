@@ -893,7 +893,7 @@ export default function VoyageDetails({ trip }: { trip: Trip | null }) {
         <div className="mb-10 md:mb-12">
           <div className="flex flex-row items-center gap-2 md:gap-3 mb-4 w-full overflow-x-auto hide-scrollbar pb-1">
             <span className="bg-primary/10 text-primary px-3 py-1.5 md:px-3.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap shrink-0">
-              À partir de {trip.price}€
+              À partir de {trip.price}€*
             </span>
             <span className="bg-gray-100 text-text-main px-3 py-1.5 md:px-3.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider shrink-0">
               {getTripTypes(trip).join(' · ')}
@@ -1191,6 +1191,11 @@ export default function VoyageDetails({ trip }: { trip: Trip | null }) {
             </ul>
           </div>
         </div>
+
+        {/* Footnote for the price shown at the top */}
+        <p className="text-xs md:text-sm text-text-muted italic mb-12">
+          * Prix par personne, calculé sur une base de 2 voyageurs.
+        </p>
 
         {/* Accommodation section */}
         <div className="mb-12">

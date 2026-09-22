@@ -80,41 +80,30 @@ export function GeocodeLocationInput(props: StringInputProps) {
     setLoading(true);
     setFeedback(null);
     try {
-      const url =
-        `https://nominatim.openstreetmap.org/search?` +
-        new URLSearchParams({
-          q: locationName,
-          format: "json",
-          limit: "1",
-          "accept-language": "fr",
-        });
-      const res = await fetch(url, {
-        headers: {
-          // Nominatim's usage policy asks for a descriptive UA — we
-          // can't set User-Agent from the browser, but Referer is set
-          // automatically and identifies Slowmundo Studio.
-          Accept: "application/json",
-        },
-      });
-      if (!res.ok) throw new Error(`Nominatim: HTTP ${res.status}`);
-      const data = (await res.json()) as Array<{
-        lat: string;
-        lon: string;
-        display_name?: string;
-      }>;
-      if (data.length === 0) {
+      // Proxied through our own /api/geocode so the request carries a
+      // valid User-Agent (Nominatim's usage policy) and the browser only
+      // talks to same-origin — keeps the Studio CSP simple.
+      const url = `/api/geocode?q=${encodeURIComponent(locationName)}`;
+      const res = await fetch(url, { headers: { Accept: "application/json" } });
+      const data = (await res.json()) as {
+        lat?: number;
+        lng?: number;
+        displayName?: string | null;
+        error?: string;
+        results?: unknown[];
+      };
+      if (!res.ok) {
+        throw new Error(data.error ?? `HTTP ${res.status}`);
+      }
+      if (typeof data.lat !== "number" || typeof data.lng !== "number") {
         setFeedback({
           tone: "critical",
           text: `Aucun résultat pour « ${locationName} ». Essaie une orthographe plus précise (ex : "Lucerne, Suisse").`,
         });
         return;
       }
-      const first = data[0];
-      const lat = Number.parseFloat(first.lat);
-      const lng = Number.parseFloat(first.lon);
-      if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
-        throw new Error("Coordonnées invalides renvoyées par Nominatim.");
-      }
+      const lat = data.lat;
+      const lng = data.lng;
 
       // Parent path = everything except the last segment (`locationName`).
       const parentPath = props.path.slice(0, -1);
@@ -130,7 +119,7 @@ export function GeocodeLocationInput(props: StringInputProps) {
       setFeedback({
         tone: "positive",
         text: `Coordonnées appliquées : ${lat.toFixed(4)}, ${lng.toFixed(4)}${
-          first.display_name ? ` — ${first.display_name}` : ""
+          data.displayName ? ` — ${data.displayName}` : ""
         }`,
       });
     } catch (err) {
