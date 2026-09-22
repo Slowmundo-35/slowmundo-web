@@ -69,7 +69,7 @@ export default function CountryClient({ countrySlug, countryName, trips }: Count
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-text-main text-xs font-bold px-3 py-1.5 rounded-full">
-                      À partir de {trip.price}€
+                      À partir de {trip.price}€*
                     </div>
                   </div>
                   <div className="flex flex-col flex-grow p-6">
@@ -102,6 +102,11 @@ export default function CountryClient({ countrySlug, countryName, trips }: Count
             ))}
           </div>
         )}
+
+        {/* Price disclaimer for the "À partir de X€*" badges on the cards */}
+        <p className="text-xs md:text-sm text-text-muted italic mt-8">
+          * Prix par personne, calculé sur une base de 2 voyageurs.
+        </p>
       </div>
     </main>
   );

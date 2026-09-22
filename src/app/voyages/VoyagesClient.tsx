@@ -217,7 +217,7 @@ export default function Voyages({ trips }: VoyagesClientProps) {
                     {/* Top-left Badges: Price & Duration */}
                     <div className="absolute top-4 left-4 z-20 flex flex-wrap items-center gap-2">
                       <span className="bg-white/95 backdrop-blur-md text-text-main text-sm font-bold px-3.5 py-2 rounded-full shadow-md border border-gray-100 flex items-center gap-1">
-                        À partir de <span className="text-primary font-extrabold text-base">{card.price}€</span>
+                        À partir de <span className="text-primary font-extrabold text-base">{card.price}€*</span>
                       </span>
                       <span className="bg-white/95 backdrop-blur-md text-text-main text-sm font-bold px-3.5 py-2 rounded-full shadow-md border border-gray-100">
                         {card.duration}
@@ -283,6 +283,11 @@ export default function Voyages({ trips }: VoyagesClientProps) {
             </motion.div>
           )}
         </div>
+
+        {/* Price disclaimer for the "À partir de X€*" badges on the cards */}
+        <p className="text-xs md:text-sm text-text-muted italic mb-8">
+          * Prix par personne, calculé sur une base de 2 voyageurs.
+        </p>
 
         {/* Bottom CTA Banner */}
         <motion.div 
