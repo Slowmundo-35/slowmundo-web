@@ -50,7 +50,7 @@ export default function Voyages({ trips }: VoyagesClientProps) {
       if (trip) return trip.continent;
     }
     if (urlType) {
-      const trip = trips.find(t => t.type === urlType);
+      const trip = trips.find(t => matchesTripType(t, urlType));
       if (trip) return trip.continent;
     }
     return 'Tout';
@@ -68,7 +68,7 @@ export default function Voyages({ trips }: VoyagesClientProps) {
     }
     if (urlType) {
       setFilterType(urlType);
-      const trip = trips.find(t => t.type === urlType);
+      const trip = trips.find(t => matchesTripType(t, urlType));
       if (trip && !urlCountry) setFilterRegion(trip.continent);
     }
   }, [urlCountry, urlType, trips]);

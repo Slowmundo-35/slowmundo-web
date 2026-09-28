@@ -552,7 +552,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
                 className="group relative h-52 rounded-2xl overflow-hidden cursor-pointer shadow-lg border border-white/10"
-                onClick={() => router.push(`/styles/${slugify(style.title)}`)}
+                onClick={() => router.push(`/voyages?type=${encodeURIComponent(style.title)}`)}
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20 group-hover:from-black/70 transition-colors duration-500 z-10" />
                 <img 
