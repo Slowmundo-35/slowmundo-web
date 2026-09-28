@@ -49,7 +49,7 @@ export async function generateMetadata({
   const { styleSlug } = await params;
   const { name, trips } = await resolveStyle(styleSlug);
   return {
-    title: `Voyages ${name} — style d'exploration | Slowmundo`,
+    title: `Voyages ${name} — style d'exploration`,
     description: `Découvrez nos voyages « ${name} » — sélection Slowmundo d'itinéraires bas carbone.`,
     alternates: { canonical: `/styles/${styleSlug}` },
     // Only index when at least one trip actually matches, otherwise
