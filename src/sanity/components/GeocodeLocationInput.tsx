@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { Button, Card, Flex, Stack, Text } from "@sanity/ui";
-import SearchIcon from "@sanity/icons/dist/Search";
+import { SearchIcon } from "@sanity/icons/Search";
 import type { StringInputProps, Path } from "sanity";
 import { useClient, useFormValue } from "sanity";
 
