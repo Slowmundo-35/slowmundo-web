@@ -58,7 +58,7 @@ const Services = () => {
           transition={{ delay: 0.1 }}
           className="text-base md:text-lg text-text-muted mb-8 leading-relaxed max-w-3xl mx-auto"
         >
-          De notre premier échange à votre retour de vacances, Slowmundo s'occupe de l'intégralité des détails logistiques. Découvrez les étapes simples pour donner vie à votre projet écoresponsable, en toute sérénité.
+          De notre premier échange à votre retour de vacances, Slow Mundo s'occupe de l'intégralité des détails logistiques. Découvrez les étapes simples pour donner vie à votre projet écoresponsable, en toute sérénité.
         </motion.p>
 
         <motion.div
@@ -70,7 +70,7 @@ const Services = () => {
             href="/contact"
             className="bg-black text-white font-bold py-3.5 px-6 md:px-8 rounded-xl hover:bg-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 text-sm md:text-base inline-flex items-center justify-center text-center max-w-[90vw]"
           >
-            <span>Planifier mon voyage avec Slowmundo</span>
+            <span>Planifier mon voyage avec Slow Mundo</span>
           </Link>
         </motion.div>
       </section>
@@ -156,7 +156,7 @@ const Services = () => {
                 3. <span className="text-primary">Partez</span> l'esprit 100% tranquille
               </h2>
               <p className="text-text-muted text-base leading-relaxed mb-4">
-                Contrairement à un simple travel planner, Slowmundo est une agence de voyage certifiée qui achète, sécurise et garantit l'intégralité de vos prestations (hébergements, transports, activités).
+                Contrairement à un simple travel planner, Slow Mundo est une agence de voyage certifiée qui achète, sécurise et garantit l'intégralité de vos prestations (hébergements, transports, activités).
               </p>
               <p className="text-text-muted text-base leading-relaxed mb-6">
                 Vous bénéficiez d'une protection juridique complète et d'un interlocuteur unique pour l'ensemble de votre périple.
@@ -169,7 +169,7 @@ const Services = () => {
               <div className="w-full max-w-[400px] mx-auto aspect-[4/3] rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-gray-100 group">
                 <img
                   src="/img/slowmundo/gotthard-tessin/ascona-ville.webp"
-                  alt="Ville d'Ascona sur le lac Majeur — voyage sécurisé Slowmundo"
+                  alt="Ville d'Ascona sur le lac Majeur — voyage sécurisé Slow Mundo"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -215,7 +215,7 @@ const Services = () => {
           
           <div className="w-full md:w-1/2">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-              Ce qui est inclus dans votre formule Slowmundo
+              Ce qui est inclus dans votre formule Slow Mundo
             </h2>
             <div className="flex flex-wrap gap-2.5 mb-6">
               <span className="bg-white text-primary px-3.5 py-1 rounded-full font-bold text-xs shadow-xs">Zéro frais cachés</span>
@@ -347,7 +347,7 @@ const Services = () => {
             href="/contact"
             className="bg-black text-white font-bold py-3.5 px-8 rounded-xl hover:bg-gray-900 transition-all duration-300 shadow-xl text-base inline-flex items-center justify-center"
           >
-            <span>Lancer mon projet avec Slowmundo</span>
+            <span>Lancer mon projet avec Slow Mundo</span>
           </Link>
         </div>
       </section>

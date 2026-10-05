@@ -107,13 +107,13 @@ function buildEmailBody(payload: Payload): { subject: string; html: string; text
 
   let subject: string;
   if (payload.source === "trip") {
-    subject = `[Slowmundo] Nouvelle demande — ${payload.tripTitle || payload.tripCountry} — ${fullName}`;
+    subject = `[Slow Mundo] Nouvelle demande — ${payload.tripTitle || payload.tripCountry} — ${fullName}`;
     lines.push(["Voyage", payload.tripTitle || "(non spécifié)"]);
     lines.push(["Pays", [...new Set([payload.tripCountry, ...payload.tripCountries])].join(", ")]);
     lines.push(["Nombre de personnes", payload.groupSize]);
     lines.push(["Résidence", payload.residence]);
   } else {
-    subject = `[Slowmundo] Nouvelle demande contact — ${fullName}`;
+    subject = `[Slow Mundo] Nouvelle demande contact — ${fullName}`;
     lines.push(["Continent", payload.continent]);
     lines.push([
       "Destinations",
@@ -128,7 +128,7 @@ function buildEmailBody(payload: Payload): { subject: string; html: string; text
   const text = lines.map(([k, v]) => `${k}: ${v}`).join("\n");
   const html = `
     <div style="font-family: system-ui, sans-serif; max-width: 600px; padding: 24px; color: #222;">
-      <h2 style="color: #0d7e5c; margin: 0 0 16px;">Nouvelle demande Slowmundo</h2>
+      <h2 style="color: #0d7e5c; margin: 0 0 16px;">Nouvelle demande Slow Mundo</h2>
       <table style="border-collapse: collapse; width: 100%;">
         ${lines
           .map(
@@ -264,7 +264,7 @@ export async function POST(req: NextRequest) {
     const transport = makeTransport();
     const { subject, html, text } = buildEmailBody(payload);
     await transport.sendMail({
-      from: `"Slowmundo" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+      from: `"Slow Mundo" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
       to: process.env.SMTP_TO || process.env.SMTP_USER!,
       replyTo: `"${payload.firstName} ${payload.lastName}" <${payload.email}>`,
       subject,

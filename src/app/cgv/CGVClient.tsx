@@ -28,7 +28,7 @@ export default function CGV() {
           <div>
             <h2 className="text-xl font-bold mb-4">1. Préambule</h2>
             <p>
-              Les présentes Conditions Générales de Vente (CGV) s'appliquent à l'ensemble des prestations de services proposées par Slowmundo, spécialisée dans la création de voyages sur mesure bas carbone.
+              Les présentes Conditions Générales de Vente (CGV) s'appliquent à l'ensemble des prestations de services proposées par Slow Mundo, spécialisée dans la création de voyages sur mesure bas carbone.
             </p>
           </div>
 
@@ -62,7 +62,7 @@ export default function CGV() {
           <div>
             <h2 className="text-xl font-bold mb-4">5. Responsabilité</h2>
             <p>
-              Slowmundo s'engage à sélectionner les meilleurs prestataires pour votre voyage. Toutefois, nous ne saurions être tenus responsables des retards de transports ou modifications de programme indépendants de notre volonté (météo, grèves, événements politiques...).
+              Slow Mundo s'engage à sélectionner les meilleurs prestataires pour votre voyage. Toutefois, nous ne saurions être tenus responsables des retards de transports ou modifications de programme indépendants de notre volonté (météo, grèves, événements politiques...).
             </p>
           </div>
         </motion.div>

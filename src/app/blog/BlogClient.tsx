@@ -71,7 +71,7 @@ export default function Blog({ articles }: BlogClientProps) {
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-xs md:text-sm tracking-wide uppercase mb-6"
         >
           <Sparkles className="w-4 h-4 text-primary" />
-          <span>Carnet d'inspirations Slowmundo</span>
+          <span>Carnet d'inspirations Slow Mundo</span>
         </motion.div>
 
         <motion.h1 

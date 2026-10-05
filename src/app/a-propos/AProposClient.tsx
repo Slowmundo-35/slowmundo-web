@@ -36,10 +36,10 @@ export default function APropos() {
 
             <div className="space-y-5 text-text-muted text-base md:text-lg leading-relaxed mb-8">
               <p>
-                Derrière Slowmundo, il y a une conviction profonde : celle que l'on peut explorer notre planète avec passion sans pour autant compromettre son avenir. Je m'appelle Alexis. Grand voyageur et amoureux des grands espaces, j'ai fondé cette agence pour mettre mon expérience du terrain au service de vos envies d'évasion.
+                Au fil de mes voyages, j'ai découvert qu'aller moins vite ne signifiait pas forcément voir moins. Prendre le train, faire étape dans une ville que l'on aurait autrement traversée ou simplement consacrer davantage de temps à une destination change aussi la façon dont on la découvre.
               </p>
               <p>
-                Mon rôle ? Concevoir pour vous des itinéraires fluides, immersifs et respectueux de l'environnement, sans aucun jugement sur votre manière de voyager.
+                C'est cette manière de voyager que j'ai eu envie de mettre au cœur de Slow Mundo : des voyages qui donnent autant d'importance au chemin qu'à la destination, tout en cherchant à limiter l'impact des déplacements.
               </p>
             </div>
 
@@ -60,8 +60,8 @@ export default function APropos() {
                 <span className="text-xs md:text-sm font-medium text-text-muted">Destinations maîtrisées</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl md:text-3xl font-extrabold text-primary">15 ans</span>
-                <span className="text-xs md:text-sm font-medium text-text-muted">D'expérience terrain</span>
+                <span className="text-2xl md:text-3xl font-extrabold text-primary">1</span>
+                <span className="text-xs md:text-sm font-medium text-text-muted">Interlocuteur unique</span>
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl md:text-3xl font-extrabold text-primary">100%</span>
@@ -81,7 +81,7 @@ export default function APropos() {
             <div className="relative rounded-[2.5rem] overflow-hidden aspect-[4/5] shadow-2xl border-4 border-white bg-gray-100">
               <img
                 src="/img/slowmundo/alexis-portrait.webp"
-                alt="Alexis, fondateur de Slowmundo, agence de voyage bas carbone à Rennes"
+                alt="Alexis, fondateur de Slow Mundo, agence de voyage bas carbone à Rennes"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -104,7 +104,7 @@ export default function APropos() {
           <div className="w-full lg:w-[480px] xl:w-[580px] mx-auto rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/3] xl:aspect-[16/9] border-4 border-white bg-gray-100 relative group">
             <img
               src="/img/slowmundo/train-europe.webp"
-              alt="Train de voyage en Europe — slow tourisme éco responsable Slowmundo"
+              alt="Train de voyage en Europe — slow tourisme éco responsable Slow Mundo"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
@@ -140,7 +140,7 @@ export default function APropos() {
             >
               <div className="flex items-center gap-3">
                 <p className="text-text-main font-semibold text-xs xl:text-sm leading-relaxed flex-1">
-                  Basé près de Rennes, avec la possibilité de se rencontrer en personne ou en visio si vous êtes ailleurs.
+                  Basé près de Rennes, je vous accompagne directement, à distance ou en personne lorsque cela est possible.
                 </p>
                 <svg className="w-16 h-10 xl:w-24 xl:h-14 text-black shrink-0 overflow-visible" viewBox="0 0 60 30" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M 2 22 C 20 26, 40 22, 55 10" />
@@ -162,7 +162,7 @@ export default function APropos() {
                   <path d="M 17 7 L 5 15 L 17 23" />
                 </svg>
                 <p className="text-text-main font-semibold text-xs xl:text-sm leading-relaxed flex-1">
-                  Transparence tarifaire totale : vous savez exactement ce que vous payez, sans frais cachés.
+                  Des prix clairs : vous savez dès le départ ce qui est inclus dans votre voyage et ce qui restera à régler sur place.
                 </p>
               </div>
             </motion.div>
@@ -220,7 +220,7 @@ export default function APropos() {
               Des engagements concrets pour un tourisme positif
             </h2>
             <p className="text-white/90 text-base md:text-lg leading-relaxed">
-              Parce que concevoir des voyages sur mesure ne suffit pas, Slowmundo s'appuie sur trois valeurs clés pour guider chacune de vos aventures.
+              Parce que concevoir des voyages sur mesure ne suffit pas, Slow Mundo s'appuie sur trois valeurs clés pour guider chacune de vos aventures.
             </p>
           </motion.div>
 
@@ -236,14 +236,14 @@ export default function APropos() {
               {
                 num: '02',
                 icon: HeartHandshake,
-                title: "La Bienveillance & Le Non-jugement",
-                text: "Le voyage durable est un cheminement personnel. Nous vous accompagnons là où vous en êtes dans votre transition, avec une écoute positive et attentive."
+                title: "Un accompagnement bienveillant",
+                text: "Pas de discours moralisateur : quelles que soient vos habitudes actuelles, nous vous aidons à faire un pas de plus vers un voyage plus responsable, à votre rythme."
               },
               {
                 num: '03',
                 icon: ShieldCheck,
-                title: "La Responsabilité globale",
-                text: "Nous ne sommes pas de simples conseillers : nous achetons, sécurisons et garantissons chaque prestation pour vous offrir une autonomie 100% sereine."
+                title: "Une prise en charge globale",
+                text: "Nous sélectionnons, réservons et sécurisons chaque prestation pour vous permettre de voyager sereinement, avec la liberté de profiter pleinement de votre expérience."
               }
             ].map((item, index) => {
               const IconComp = item.icon;
@@ -282,7 +282,7 @@ export default function APropos() {
               href="/contact"
               className="bg-black text-white font-bold py-3.5 px-8 rounded-xl hover:bg-gray-900 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 text-base inline-flex items-center justify-center"
             >
-              <span>Organiser mon voyage avec Slowmundo</span>
+              <span>Organiser mon voyage avec Slow Mundo</span>
             </Link>
           </motion.div>
         </div>
@@ -323,7 +323,7 @@ export default function APropos() {
               href="/contact"
               className="inline-block bg-black text-white font-bold py-2.5 px-6 rounded-lg hover:bg-gray-900 transition-all duration-300 shadow-md hover:shadow-lg text-base w-fit"
             >
-              Demander mon carnet de voyage sur mesure
+              Créer mon voyage sur mesure
             </Link>
           </div>
         </motion.div>

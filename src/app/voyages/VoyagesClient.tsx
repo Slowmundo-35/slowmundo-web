@@ -264,7 +264,7 @@ export default function Voyages({ trips }: VoyagesClientProps) {
                 <>
                   <p className="mb-2 text-text-main font-semibold text-xl">Nos itinéraires arrivent bientôt.</p>
                   <p className="mb-6 max-w-xl mx-auto">
-                    Chaque voyage Slowmundo est conçu sur mesure. Parlez-nous de votre envie, on construit votre itinéraire bas carbone avec vous.
+                    Chaque voyage Slow Mundo est conçu sur mesure. Parlez-nous de votre envie, on construit votre itinéraire bas carbone avec vous.
                   </p>
                   <Link href="/contact" className="inline-block bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary/90 transition-colors">
                     Créer mon voyage sur mesure
@@ -304,7 +304,7 @@ export default function Voyages({ trips }: VoyagesClientProps) {
           <div className="w-full md:w-5/12 h-48 md:h-auto md:self-stretch relative overflow-hidden">
              <img
                src="/img/slowmundo/gotthard-tessin/locarno-lac-majeur.webp"
-               alt="Locarno et le lac Majeur — voyage bas carbone Slowmundo"
+               alt="Locarno et le lac Majeur — voyage bas carbone Slow Mundo"
                className="absolute inset-0 w-full h-full object-cover"
              />
           </div>

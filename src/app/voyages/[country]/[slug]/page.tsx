@@ -55,7 +55,7 @@ export async function generateMetadata({
       title: trip.title,
       description: rawDescription,
       type: "website",
-      images: ogImages(trip.image, `${trip.title} — Slowmundo`),
+      images: ogImages(trip.image, `${trip.title} — Slow Mundo`),
     },
     twitter: {
       card: "summary_large_image",

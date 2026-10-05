@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 
 /**
- * A Slowmundo trip — a full itinerary with pricing, inclusions, and per-day details.
+ * A Slow Mundo trip — a full itinerary with pricing, inclusions, and per-day details.
  * Mirrors the Trip TS type currently used by src/data/trips.ts.
  */
 export const trip = defineType({

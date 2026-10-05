@@ -61,13 +61,13 @@ export default function Home() {
                 transition={{ duration: 0.6 }}
                 className="text-4xl md:text-5xl lg:text-[3.25rem] font-bold text-text-main leading-[1.15] mb-6 tracking-tight"
               >
-                Slowmundo - votre <br/>
+                Slow Mundo – votre <br/>
                 <span className="text-primary relative inline-block">
                   voyage
                   <svg className="absolute -bottom-1 left-0 w-full h-2 text-primary/30 pointer-events-none" viewBox="0 0 100 20" preserveAspectRatio="none">
                     <path d="M 0 15 Q 50 0 100 15" stroke="currentColor" strokeWidth="4" fill="none" strokeLinecap="round" />
                   </svg>
-                </span> à bas carbone
+                </span> bas carbone
               </motion.h1>
               
               <motion.p 
@@ -76,7 +76,7 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="text-base md:text-lg text-text-muted font-normal leading-relaxed mb-8 max-w-lg"
               >
-                Vous rêvez d'évasion sans pour autant renoncer à vos engagements environnementaux ? Slowmundo organise de A à Z votre voyage personnalisé en Europe et en Asie.
+                Vous rêvez d'évasion sans pour autant renoncer à vos engagements environnementaux ? Slow Mundo imagine et organise des voyages sur mesure en Europe et en Asie, en privilégiant les mobilités douces.
               </motion.p>
               
               {/* Action Buttons */}
@@ -116,7 +116,7 @@ export default function Home() {
               <div className="relative w-full h-full rounded-[2.2rem] overflow-hidden shadow-2xl bg-gray-100 border border-gray-100">
                 <img
                   src="/img/slowmundo/paysage-italie-mer.webp"
-                  alt="Voyage bas carbone au bord du lac Majeur — itinéraire Slowmundo en train"
+                  alt="Voyage bas carbone au bord du lac Majeur — itinéraire Slow Mundo en train"
                   className="w-full h-full object-cover"
                 />
                 
@@ -124,7 +124,7 @@ export default function Home() {
                 <div className="absolute bottom-0 left-0 w-[62%] sm:w-[58%] aspect-[4/3] rounded-tr-[2.2rem] overflow-hidden border-t-6 border-r-6 border-white shadow-2xl z-20 bg-gray-100 group">
                   <img
                     src="/img/slowmundo/alexis-devant-train.webp"
-                    alt="Alexis, fondateur de l'agence de voyage bas carbone Slowmundo, en voyage éco responsable en train"
+                    alt="Alexis, fondateur de l'agence de voyage bas carbone Slow Mundo, en voyage éco responsable en train"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   {/* Floating badge inside overlay */}
@@ -228,16 +228,16 @@ export default function Home() {
                     Personnalisez le parcours
                   </h3>
                   <p className="text-sm md:text-base text-text-muted leading-relaxed mb-6 flex-grow text-center">
-                    Ajustez les étapes, vos hébergements écoresponsables et vos activités pour créer un voyage à votre image.
+                    Ajustez les étapes, vos hébergements et vos activités pour créer un voyage à votre image.
                   </p>
                   <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 mt-auto shadow-inner group relative">
                     <img
                       src="/img/slowmundo/alexis-monte-dans-train.webp"
-                      alt="Embarquement pour un voyage bas carbone — slow tourisme en train avec Slowmundo"
+                      alt="Embarquement pour un voyage bas carbone — slow tourisme en train avec Slow Mundo"
                       className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                      <span className="text-white text-xs font-bold flex items-center gap-1.5"><HeartHandshake className="w-3.5 h-3.5" /> Sur-mesure complet</span>
+                      <span className="text-white text-xs font-bold flex items-center gap-1.5"><HeartHandshake className="w-3.5 h-3.5" /> Sur-mesure</span>
                     </div>
                   </div>
                 </div>
@@ -262,7 +262,7 @@ export default function Home() {
                     Voyagez l'esprit léger
                   </h3>
                   <p className="text-sm md:text-base text-text-muted leading-relaxed mb-6 flex-grow text-center">
-                    De la réservation des billets de train à l'assistance 24/7, nous nous occupons de tout. Vous n'avez qu'à savourer !
+                    Transports, hébergements, activités et carnet de voyage : nous nous occupons de l'organisation. Vous n'avez qu'à savourer !
                   </p>
                   <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 mt-auto shadow-inner group relative">
                     <img
@@ -271,7 +271,7 @@ export default function Home() {
                       className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                      <span className="text-white text-xs font-bold flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5" /> Agence & Protection</span>
+                      <span className="text-white text-xs font-bold flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5" /> Laissez-vous porter</span>
                     </div>
                   </div>
                 </div>
@@ -479,15 +479,15 @@ export default function Home() {
               className="flex flex-col items-start"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-text-main mb-6 leading-tight">
-                Rencontrez Alexis, votre <span className="text-primary">voyageur expert</span> basé en Bretagne
+                Rencontrez Alexis, votre <span className="text-primary">voyageur expert</span> derrière Slow Mundo
               </h2>
-              
+
               <div className="space-y-4 text-base md:text-lg text-text-muted leading-relaxed mb-8">
                 <p>
-                  Passionné par la richesse des cultures internationales et convaincu qu'un autre tourisme est possible, j'ai fondé Slowmundo pour réconcilier le désir d'ailleurs et la préservation de notre planète.
+                  Voyager, découvrir de nouvelles cultures et imaginer des itinéraires font partie de ce qui m'anime depuis longtemps. C'est cette passion qui m'a conduit à créer Slow Mundo, avec l'envie de proposer une autre façon de découvrir le monde.
                 </p>
                 <p>
-                  Basé près de Rennes, je mets mon expérience du terrain au service des voyageurs du Grand Ouest (et d'ailleurs !) pour concevoir des itinéraires sur mesure fluides, authentiques et sans jugement.
+                  Basé près de Rennes, j'accompagne les voyageurs dans la création de voyages sur mesure en Europe et en Asie, pensés selon leurs envies, leur rythme et leur façon de voyager, en privilégiant les mobilités douces.
                 </p>
               </div>
 
@@ -509,7 +509,7 @@ export default function Home() {
             >
               <img
                 src="/img/slowmundo/paysage-autriche-montagne.webp"
-                alt="Paysage autrichien en montagne — voyage bas carbone imaginé par Slowmundo"
+                alt="Paysage autrichien en montagne — voyage bas carbone imaginé par Slow Mundo"
                 className="w-full h-full object-cover"
               />
             </motion.div>
@@ -659,7 +659,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-2xl md:text-3xl lg:text-4xl font-bold text-text-main mb-4 leading-tight"
             >
-              Vos questions sur le voyage bas carbone avec <span className="text-primary">Slowmundo</span>
+              Vos questions sur le voyage bas carbone avec <span className="text-primary">Slow Mundo</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}

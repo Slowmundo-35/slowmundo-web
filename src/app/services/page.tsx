@@ -4,20 +4,20 @@ import JsonLd from "@/components/JsonLd";
 import { SERVICES_FAQS } from "@/data/servicesFaqs";
 import ServicesClient from "./ServicesClient";
 
-const SERVICES_OG_TITLE = "Voyage bas carbone sur mesure | Slowmundo";
+const SERVICES_OG_TITLE = "Voyage bas carbone sur mesure | Slow Mundo";
 const SERVICES_OG_DESC =
-  "Itinéraires ferroviaires, hébergements engagés, accompagnement de A à Z. Slowmundo, votre agence de voyage bas carbone.";
+  "Itinéraires ferroviaires, hébergements engagés, accompagnement de A à Z. Slow Mundo, votre agence de voyage bas carbone.";
 const SERVICES_IMAGE = "/img/slowmundo/train-europe.webp";
 
 export const metadata: Metadata = {
   title: "Nos services — Voyage bas carbone sur mesure",
   description:
-    "Voyage bas carbone sur mesure : Slowmundo conçoit vos itinéraires ferroviaires, sélectionne vos hébergements engagés et vous accompagne de A à Z pour un voyage éco responsable.",
+    "Voyage bas carbone sur mesure : Slow Mundo conçoit vos itinéraires ferroviaires, sélectionne vos hébergements engagés et vous accompagne de A à Z pour un voyage éco responsable.",
   alternates: { canonical: "/services" },
   openGraph: {
     title: SERVICES_OG_TITLE,
     description: SERVICES_OG_DESC,
-    images: ogImages(SERVICES_IMAGE, "Slowmundo — voyage bas carbone sur mesure"),
+    images: ogImages(SERVICES_IMAGE, "Slow Mundo — voyage bas carbone sur mesure"),
   },
   twitter: {
     card: "summary_large_image",

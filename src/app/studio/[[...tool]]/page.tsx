@@ -8,7 +8,7 @@ import Studio from "./Studio";
 export const dynamic = "force-static";
 
 export const metadata = {
-  title: "Slowmundo Studio",
+  title: "Slow Mundo Studio",
   robots: { index: false, follow: false },
 };
 

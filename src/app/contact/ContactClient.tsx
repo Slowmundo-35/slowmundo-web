@@ -167,7 +167,7 @@ export default function Contact() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex items-end p-6">
                 <p className="text-white text-sm font-medium leading-snug">
                   "Chaque voyage commence par un premier échange. Hâte de vous lire !"
-                  <br /><span className="text-xs text-white/80 font-semibold">— Alexis, Fondateur de Slowmundo</span>
+                  <br /><span className="text-xs text-white/80 font-semibold">— Alexis, Fondateur de Slow Mundo</span>
                 </p>
               </div>
             </div>
@@ -341,7 +341,7 @@ export default function Contact() {
                     className="w-5 h-5 mt-0.5 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer shrink-0"
                   />
                   <span className="text-xs md:text-sm text-text-muted leading-relaxed">
-                    En soumettant ce formulaire, j&apos;accepte que Slowmundo conserve les
+                    En soumettant ce formulaire, j&apos;accepte que Slow Mundo conserve les
                     informations saisies pour me recontacter et concevoir mon voyage,
                     conformément à la{' '}
                     <Link

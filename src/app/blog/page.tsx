@@ -6,11 +6,11 @@ import BlogClient from "./BlogClient";
 const BLOG_TITLE = "Blog voyage bas carbone & slow tourisme";
 const BLOG_DESC =
   "Articles, guides et inspirations pour voyager éco responsable : itinéraires en train, écotourisme et slow tourisme en Europe et en Asie.";
-const BLOG_OG_TITLE = `${BLOG_TITLE} | Slowmundo`;
+const BLOG_OG_TITLE = `${BLOG_TITLE} | Slow Mundo`;
 const BLOG_OG_DESC =
   "Guides et récits pour organiser un voyage éco responsable en train, en Europe et en Asie.";
 const BLOG_IMAGE = "/img/slowmundo/paysage-italie.webp";
-const BLOG_IMAGE_ALT = "Blog Slowmundo — voyage bas carbone & slow tourisme";
+const BLOG_IMAGE_ALT = "Blog Slow Mundo — voyage bas carbone & slow tourisme";
 
 export const metadata: Metadata = {
   title: BLOG_TITLE,

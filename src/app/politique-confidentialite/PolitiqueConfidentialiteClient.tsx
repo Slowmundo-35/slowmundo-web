@@ -28,7 +28,7 @@ export default function PolitiqueConfidentialite() {
           <div>
             <h2 className="text-xl font-bold mb-4">1. Collecte des données personnelles</h2>
             <p>
-              Dans le cadre de l'utilisation de nos services, Slowmundo peut être amené à collecter des données personnelles (nom, prénom, adresse e-mail, numéro de téléphone, préférences de voyage) via nos formulaires de contact.
+              Dans le cadre de l'utilisation de nos services, Slow Mundo peut être amené à collecter des données personnelles (nom, prénom, adresse e-mail, numéro de téléphone, préférences de voyage) via nos formulaires de contact.
             </p>
           </div>
 

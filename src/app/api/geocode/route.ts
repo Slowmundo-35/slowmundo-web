@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
   try {
     const res = await fetch(url, {
       headers: {
-        "User-Agent": "Slowmundo Studio (contact@slowmundo.fr)",
+        "User-Agent": "Slow Mundo Studio (contact@slowmundo.fr)",
         Accept: "application/json",
       },
       // 8 s hard cap: Nominatim usually answers < 500 ms; anything slower is stuck

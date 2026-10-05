@@ -21,11 +21,11 @@ const quicksand = Quicksand({
 
 export const metadata: Metadata = {
   title: {
-    default: "Slowmundo — Agence de voyage bas carbone en train | Europe & Asie",
-    template: "%s | Slowmundo",
+    default: "Slow Mundo — Agence de voyage bas carbone en train | Europe & Asie",
+    template: "%s | Slow Mundo",
   },
   description:
-    "Voyage éco responsable en train à travers l'Europe et l'Asie. Slowmundo, agence de voyage bas carbone à Rennes, conçoit vos itinéraires personnalisés en slow tourisme.",
+    "Voyage éco responsable en train à travers l'Europe et l'Asie. Slow Mundo, agence de voyage bas carbone à Rennes, conçoit vos itinéraires personnalisés en slow tourisme.",
   metadataBase: new URL("https://slowmundo.fr"),
   keywords: [
     "voyage éco responsable",
@@ -38,27 +38,27 @@ export const metadata: Metadata = {
     "voyage en train Asie",
     "voyage responsable Rennes",
   ],
-  authors: [{ name: "Slowmundo" }],
-  creator: "Slowmundo",
-  publisher: "Slowmundo",
+  authors: [{ name: "Slow Mundo" }],
+  creator: "Slow Mundo",
+  publisher: "Slow Mundo",
   openGraph: {
-    title: "Slowmundo — Agence de voyage bas carbone en train",
+    title: "Slow Mundo — Agence de voyage bas carbone en train",
     description:
-      "Voyage éco responsable en train à travers l'Europe et l'Asie. Slowmundo organise vos voyages personnalisés en slow tourisme.",
+      "Voyage éco responsable en train à travers l'Europe et l'Asie. Slow Mundo organise vos voyages personnalisés en slow tourisme.",
     type: "website",
     locale: "fr_FR",
-    siteName: "Slowmundo",
+    siteName: "Slow Mundo",
     url: "https://slowmundo.fr",
     images: [
       {
         url: OG_DEFAULT_IMAGE,
-        alt: "Slowmundo — Agence de voyage bas carbone en train",
+        alt: "Slow Mundo — Agence de voyage bas carbone en train",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Slowmundo — Agence de voyage bas carbone en train",
+    title: "Slow Mundo — Agence de voyage bas carbone en train",
     description:
       "Voyage éco responsable en train à travers l'Europe et l'Asie. Voyages personnalisés en slow tourisme.",
     images: [OG_DEFAULT_IMAGE],

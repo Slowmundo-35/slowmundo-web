@@ -3,7 +3,7 @@ import MentionsLegalesClient from "./MentionsLegalesClient";
 
 export const metadata: Metadata = {
   title: "Mentions légales",
-  description: "Mentions légales de Slowmundo — agence de voyage bas carbone.",
+  description: "Mentions légales de Slow Mundo — agence de voyage bas carbone.",
   robots: { index: false, follow: true },
 };
 

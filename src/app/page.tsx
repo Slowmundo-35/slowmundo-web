@@ -4,13 +4,13 @@ import { faqPageSchema } from "@/lib/seo";
 import { HOME_FAQS } from "@/data/homeFaqs";
 import HomeClient from "./HomeClient";
 
-// Page racine — override the layout defaults to keep title distinct from the template `%s | Slowmundo`.
+// Page racine — override the layout defaults to keep title distinct from the template `%s | Slow Mundo`.
 export const metadata: Metadata = {
   title: {
-    absolute: "Slowmundo — Agence de voyage bas carbone en train | Europe & Asie",
+    absolute: "Slow Mundo — Agence de voyage bas carbone en train | Europe & Asie",
   },
   description:
-    "Voyage éco responsable en train à travers l'Europe et l'Asie. Slowmundo, agence de voyage bas carbone à Rennes, conçoit vos itinéraires personnalisés en slow tourisme.",
+    "Voyage éco responsable en train à travers l'Europe et l'Asie. Slow Mundo, agence de voyage bas carbone à Rennes, conçoit vos itinéraires personnalisés en slow tourisme.",
   alternates: { canonical: "/" },
 };
 

@@ -28,8 +28,8 @@ export default function MentionsLegales() {
           <div>
             <h2 className="text-xl font-bold mb-4">1. Éditeur du site</h2>
             <p>
-              Le site <strong>Slowmundo</strong> est édité par :<br />
-              Slowmundo SAS<br />
+              Le site <strong>Slow Mundo</strong> est édité par :<br />
+              Slow Mundo SAS<br />
               Capital social : 10 000 €<br />
               RCS Rennes B 123 456 789<br />
               Siège social : 1 Rue de la Paix, 35000 Rennes, France<br />

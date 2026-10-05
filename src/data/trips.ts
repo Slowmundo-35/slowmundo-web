@@ -83,8 +83,8 @@ export interface Trip {
 }
 
 /**
- * Real Slowmundo trips. Additional trips will be added via Sanity CMS.
- * Images are Slowmundo placeholders — replace with the real brochure shots when available.
+ * Real Slow Mundo trips. Additional trips will be added via Sanity CMS.
+ * Images are Slow Mundo placeholders — replace with the real brochure shots when available.
  */
 export const TRIPS: Trip[] = [];
 

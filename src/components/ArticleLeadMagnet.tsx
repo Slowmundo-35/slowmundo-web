@@ -287,7 +287,7 @@ export function InternalTripBanner({
       <div className="md:w-7/12 bg-primary/10 p-6 sm:p-8 flex flex-col justify-center items-start text-text-main">
         <div className="flex items-center gap-1.5 text-xs font-bold text-primary uppercase tracking-wider mb-1">
           <MapPin className="w-3.5 h-3.5" />
-          <span>Séjours Slowmundo</span>
+          <span>Séjours Slow Mundo</span>
         </div>
         <h4 className="text-lg font-bold mb-2 leading-tight text-text-main">{title}</h4>
         <p className="text-xs sm:text-sm text-text-main/80 mb-4 leading-relaxed">{subtitle}</p>

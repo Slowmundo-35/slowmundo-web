@@ -126,13 +126,13 @@ export default function Article({ article, relatedArticles = [] }: ArticleClient
                   <div className="w-10 h-10 rounded-full bg-primary/20 text-primary font-bold flex items-center justify-center overflow-hidden border border-primary/30">
                     <img
                       src="/img/slowmundo/alexis-portrait.webp"
-                      alt="Alexis, fondateur de Slowmundo"
+                      alt="Alexis, fondateur de Slow Mundo"
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div>
                     <p className="text-sm font-bold text-text-main">Alexis</p>
-                    <p className="text-xs text-text-muted">Fondateur & Concepteur Slowmundo</p>
+                    <p className="text-xs text-text-muted">Fondateur & Concepteur Slow Mundo</p>
                   </div>
                 </div>
 
@@ -188,13 +188,13 @@ export default function Article({ article, relatedArticles = [] }: ArticleClient
               <div className="w-20 h-20 rounded-full overflow-hidden shrink-0 border-2 border-primary shadow-sm">
                 <img
                   src="/img/slowmundo/alexis-portrait.webp"
-                  alt="Alexis, fondateur de Slowmundo"
+                  alt="Alexis, fondateur de Slow Mundo"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="text-center sm:text-left flex-1">
                 <span className="text-xs font-bold text-primary uppercase tracking-wider">Auteur de l'article</span>
-                <h4 className="text-xl font-bold text-text-main mb-2">Alexis • Fondateur de Slowmundo</h4>
+                <h4 className="text-xl font-bold text-text-main mb-2">Alexis • Fondateur de Slow Mundo</h4>
                 <p className="text-xs sm:text-sm text-text-main/80 leading-relaxed mb-4">
                   Passionné de voyages ferroviaires et engagé pour un tourisme responsable, je conçois des itinéraires uniques pour vous faire découvrir le monde sans empreinte inutile.
                 </p>

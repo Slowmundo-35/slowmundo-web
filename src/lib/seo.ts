@@ -3,9 +3,9 @@ import type { Article } from "@/data/articlesData";
 import { getCountrySlug, getTripSlug } from "@/data/trips";
 
 export const SITE_URL = "https://slowmundo.fr";
-export const SITE_NAME = "Slowmundo";
+export const SITE_NAME = "Slow Mundo";
 
-/** Fallback OG image used when a page doesn't ship its own. Raw Slowmundo photo, no overlay. */
+/** Fallback OG image used when a page doesn't ship its own. Raw Slow Mundo photo, no overlay. */
 export const OG_DEFAULT_IMAGE = "/img/slowmundo/gotthard-tessin/ascona-lac-majeur.webp";
 
 /** Wrap a single OG image URL in the shape Next expects for `metadata.openGraph.images`. */
@@ -13,14 +13,14 @@ export function ogImages(url: string, alt: string) {
   return [{ url, width: 1200, height: 630, alt }];
 }
 
-/** JSON-LD schema.org — Slowmundo as a TravelAgency (site-wide). */
+/** JSON-LD schema.org — Slow Mundo as a TravelAgency (site-wide). */
 export const travelAgencySchema = {
   "@context": "https://schema.org",
   "@type": "TravelAgency",
   name: SITE_NAME,
   url: SITE_URL,
   description:
-    "Agence de voyage bas carbone à Rennes. Slowmundo organise vos voyages personnalisés en train à travers l'Europe et l'Asie.",
+    "Agence de voyage bas carbone à Rennes. Slow Mundo organise vos voyages personnalisés en train à travers l'Europe et l'Asie.",
   logo: `${SITE_URL}/img/slowmundo/alexis-portrait.webp`,
   image: `${SITE_URL}/img/slowmundo/gotthard-tessin/locarno-lac-majeur.webp`,
   telephone: "+33-6-76-37-18-39",
